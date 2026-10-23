@@ -1,0 +1,83 @@
+site_name: KNode Documentation
+site_description: Technical documentation for KNode, an evidence-based matchmaking platform connecting African NGOs, collectives and funders.
+site_url: https://akirachix.github.io/alya-technical-documentation/
+repo_url: https://github.com/akirachix/alya-technical-documentation
+repo_name: alya-technical-documentation
+
+theme:
+  name: material
+  language: en
+  logo: assets/brand/knode-logo.png
+  favicon: assets/brand/knode-logo.png
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Overview: overview.md
+  - Architecture: architecture.md
+  - Backend: backend.md
+  - AI Service: ai.md
+  - Frontend Web: frontend.md
+  - Integrations: integrations.md
+  - Glossary: glossary.md
+
+extra:
+  generator: false
+
+copyright: KNode &mdash; evidence-based matchmaking for African NGOs and funders.
