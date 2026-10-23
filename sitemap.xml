@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/ai/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/architecture/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/backend/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/frontend/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/glossary/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/integrations/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+    <url>
+         <loc>https://akirachix.github.io/alya-technical-documentation/overview/</loc>
+         <lastmod>2026-10-23</lastmod>
+    </url>
+</urlset>
