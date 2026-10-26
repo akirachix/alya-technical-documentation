@@ -17,7 +17,6 @@ Last updated: 26 October 2026
   - [I. Data ingestion, evidence and reporting](#i-data-ingestion-evidence-and-reporting)
   - [J. Testing and quality assurance](#j-testing-and-quality-assurance)
   - [K. Infrastructure, deployment and operations](#k-infrastructure-deployment-and-operations)
-- [Acronym and abbreviation index](#acronym-and-abbreviation-index)
 
 ## About this glossary
 
