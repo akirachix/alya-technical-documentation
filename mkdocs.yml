@@ -26,7 +26,6 @@ theme:
     text: Inter
     code: JetBrains Mono
   features:
-    - navigation.sections
     - navigation.indexes
     - navigation.tracking
     - navigation.top
@@ -35,6 +34,7 @@ theme:
     - search.highlight
     - content.code.copy
     - content.tabs.link
+    - navigation.expand
   icon:
     repo: fontawesome/brands/github
 
@@ -77,7 +77,13 @@ nav:
   - Home: index.md
   - Overview: overview.md
   - Architecture: architecture.md
-  - Backend: backend.md
+  - Backend:
+      - backend/index.md
+      - Database and Migrations: backend/database.md
+      - API Reference: backend/api-reference.md
+      - Authentication and Security: backend/authentication-security.md
+      - Matching Engine: backend/matching-engine.md
+      - Testing: backend/testing.md
   - AI Service: ai.md
   - Frontend Web: frontend.md
   - Integrations: integrations.md
