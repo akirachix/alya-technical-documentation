@@ -22,7 +22,7 @@ Last updated: 26 October 2026
 
 This glossary defines the terms used across the KNode technical documentation, grouped by system area. It also contains an abbreviation index.
 
-**Sources.** Terms come from the Architecture, Backend (index, Database, API Reference, Authentication and Security, Matching Engine, Testing), AI Service, Frontend Web and Integrations pages of the `alya-technical-documentation` repository (`main` branch). The Overview page was an empty stub when these sources were read. No source code, ERD, PRD, MVP document, OpenAPI file or Figma file was available, so project-specific claims are checked against the documentation, not against code. See [Evidence basis and limitations](#evidence-basis-and-limitations).
+**Sources.** Terms come from the Architecture, Backend (index, Database, API Reference, Authentication and Security, Matching Engine, Testing), AI Service, Frontend Web and Integrations pages of the `alya-technical-documentation` repository (`main` branch). The Overview page was an empty stub when these sources were read. No source code, ERD, PRD, MVP document, OpenAPI file or Figma file was available, so project-specific claims are checked against the documentation, not against code.
 
 **Status labels in the "Context in KNode" column.** The documentation mixes target design with inspected code, so entries that describe KNode-specific behaviour say which it is:
 
