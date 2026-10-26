@@ -364,6 +364,6 @@ These controls apply to the AI itself: what goes into the model, what comes out,
 ## Related pages
 
 - [Architecture](architecture.md)
-- [Backend](backend.md)
+- [Backend](backend/index.md)
 - [Integrations](integrations.md)
 - [Glossary](glossary.md)
