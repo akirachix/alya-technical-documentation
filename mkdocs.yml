@@ -66,6 +66,12 @@ markdown_extensions:
 
 plugins:
   - search
+  - glightbox:
+      effect: zoom
+      zoomable: true
+      draggable: true
+      touchNavigation: true
+      auto_caption: false
 
 nav:
   - Home: index.md
