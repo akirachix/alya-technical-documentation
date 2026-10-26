@@ -286,36 +286,34 @@ User action → page handler calls a `lib/*` function → `fetch` → JSON parse
 
 Spec check: **✔** = path and method present in `docs/openapi.json`; **✘** = not present.
 
-| Frontend Feature       | API Service or Function                                          | Backend Endpoint                                                      | Purpose                                                            |
-| ---------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Sign up                | `authApi.register`                                               | `POST /api/v1/auth/register` ✔                                        | Create account                                                     |
-| Verify email           | `authApi.verifyEmail`                                            | `POST /api/v1/auth/verify-email` ✔                                    | Email OTP                                                          |
-| Login                  | `authApi.login`                                                  | `POST /api/v1/auth/login` ✔                                           | Password step                                                      |
-| Verify login           | `authApi.verifyLogin`                                            | `POST /api/v1/auth/verify-login` ✔                                    | OTP → tokens                                                       |
-| Current user           | `fetchCurrentUser`                                               | `GET /api/v1/auth/me` ✔                                               | Identity and role                                                  |
-| Org profile            | `organisationApi.getProfile / updateProfile`                     | `GET/PATCH /api/v1/organisations/{id}` ✔                              | View and edit                                                      |
-| Evidence list          | `organisationApi.listAllDocuments`                               | `GET /api/v1/organisations/{id}/evidence` ✔                           | Document list (mapped from ledger entries)                         |
-| Document upload        | `organisationApi.uploadDocument`                                 | `POST /api/v1/organisations/{id}/documents` ✔                         | Upload file                                                        |
-| Team                   | `organisationApi.getTeam`                                        | `GET /api/v1/organisations/{id}/team` ✔                               | Defined; no page found using it                                    |
-| Discover orgs          | inline in `funder/organisations/page.tsx`                        | `GET /api/v1/organisations` ✔                                         | Funder search                                                      |
-| Matches                | `matchingApi.createAssessment / listAssessments / getAssessment` | `POST/GET /api/v1/matches`, `GET /api/v1/matches/{id}` ✔              | Match assessments                                                  |
-| Partner suggestions    | `matchingApi.getPartnerSuggestions`                              | `GET /api/v1/matches/{id}/partners` ✔                                 | Complementary orgs                                                 |
-| Coalition policy       | `lib/funder-frontend.ts`                                         | `GET /api/v1/opportunities/{id}/coalition-policy` ✘                   | Spec has `GET /api/v1/matches/opportunities/{id}/coalition-policy` |
-| Trends                 | `trendApi.getDashboardData`                                      | `GET /api/v1/trends/analysis?region&timeframe&sector` ✔               | Trend chart                                                        |
-| Opportunity list       | `fetchOpportunityPage`                                           | `GET {NEXT_PUBLIC_API_URL}/opportunities` ✔ if base ends in `/api/v1` | Search                                                             |
-| My opportunities       | `fetchOpportunityPage(mine)`, `opportunityApi.listMine`          | `GET …/opportunities/mine` ✔                                          | Funder's grants                                                    |
-| Opportunity CRUD       | `grantForm.ts`, funder detail page                               | `POST …/opportunities`, `PATCH/DELETE …/{id}` ✔                       | Create, edit, delete                                               |
-| Requirements CRUD      | `grantForm.ts`                                                   | `POST …/{id}/requirements`, `PATCH/DELETE …/requirements/{rid}` ✔     | Grant requirements                                                 |
-| AI extraction          | `extractGrantDraft`                                              | `POST …/opportunities/extract` ✔                                      | File → form draft                                                  |
-| Collectives            | `lib/collectives.ts`                                             | `GET /collectives`, `GET /collectives/{id}` ✔                         | NGO list and detail                                                |
-| Invitation response    | `respondToInvite`                                                | `POST /collectives/{id}/members/{mid}/respond` ✔                      | Accept/decline                                                     |
-| Coverage               | `getCoverage`                                                    | `GET /collectives/{id}/coverage` ✔                                    | Capability coverage                                                |
-| Workspace              | `getWorkspace`, `getOrCreateWorkspace`                           | `GET/POST /collectives/{id}/workspace` ✔                              | Workspace record                                                   |
-| Workspace items        | `listAllItems`, `createItem`                                     | `GET/POST /workspaces/{id}/items` ✔                                   | Tasks, documents, notes                                            |
-| Funder coverage        | `fetchCollectiveCoverage`                                        | `GET /api/v1/collectives/{id}/coverage` ✔                             | Funder coalition detail                                            |
-| Funder collective list | `fetchFunderCollectives`                                         | `GET /api/v1/collectives` ✘                                           | Exported but not called by any page found                          |
-| Funder coalition list  | `listCollectivesForOpportunity`                                  | `GET /collectives?opportunity_id=…` ✔                                 | Coalitions page                                                    |
-| Invite member          | `inviteMember`                                                   | `POST /collectives/{id}/members/{mid}/invite` ✔                       | Exported, not called                                               |
+| Frontend Feature      | API Service or Function                                          | Backend Endpoint                                                      | Purpose                                    |
+| --------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------ |
+| Sign up               | `authApi.register`                                               | `POST /api/v1/auth/register` ✔                                        | Create account                             |
+| Verify email          | `authApi.verifyEmail`                                            | `POST /api/v1/auth/verify-email` ✔                                    | Email OTP                                  |
+| Login                 | `authApi.login`                                                  | `POST /api/v1/auth/login` ✔                                           | Password step                              |
+| Verify login          | `authApi.verifyLogin`                                            | `POST /api/v1/auth/verify-login` ✔                                    | OTP → tokens                               |
+| Current user          | `fetchCurrentUser`                                               | `GET /api/v1/auth/me` ✔                                               | Identity and role                          |
+| Org profile           | `organisationApi.getProfile / updateProfile`                     | `GET/PATCH /api/v1/organisations/{id}` ✔                              | View and edit                              |
+| Evidence list         | `organisationApi.listAllDocuments`                               | `GET /api/v1/organisations/{id}/evidence` ✔                           | Document list (mapped from ledger entries) |
+| Document upload       | `organisationApi.uploadDocument`                                 | `POST /api/v1/organisations/{id}/documents` ✔                         | Upload file                                |
+| Team                  | `organisationApi.getTeam`                                        | `GET /api/v1/organisations/{id}/team` ✔                               | Defined; no page found using it            |
+| Discover orgs         | inline in `funder/organisations/page.tsx`                        | `GET /api/v1/organisations` ✔                                         | Funder search                              |
+| Matches               | `matchingApi.createAssessment / listAssessments / getAssessment` | `POST/GET /api/v1/matches`, `GET /api/v1/matches/{id}` ✔              | Match assessments                          |
+| Partner suggestions   | `matchingApi.getPartnerSuggestions`                              | `GET /api/v1/matches/{id}/partners` ✔                                 | Complementary orgs                         |
+| Trends                | `trendApi.getDashboardData`                                      | `GET /api/v1/trends/analysis?region&timeframe&sector` ✔               | Trend chart                                |
+| Opportunity list      | `fetchOpportunityPage`                                           | `GET {NEXT_PUBLIC_API_URL}/opportunities` ✔ if base ends in `/api/v1` | Search                                     |
+| My opportunities      | `fetchOpportunityPage(mine)`, `opportunityApi.listMine`          | `GET …/opportunities/mine` ✔                                          | Funder's grants                            |
+| Opportunity CRUD      | `grantForm.ts`, funder detail page                               | `POST …/opportunities`, `PATCH/DELETE …/{id}` ✔                       | Create, edit, delete                       |
+| Requirements CRUD     | `grantForm.ts`                                                   | `POST …/{id}/requirements`, `PATCH/DELETE …/requirements/{rid}` ✔     | Grant requirements                         |
+| AI extraction         | `extractGrantDraft`                                              | `POST …/opportunities/extract` ✔                                      | File → form draft                          |
+| Collectives           | `lib/collectives.ts`                                             | `GET /collectives`, `GET /collectives/{id}` ✔                         | NGO list and detail                        |
+| Invitation response   | `respondToInvite`                                                | `POST /collectives/{id}/members/{mid}/respond` ✔                      | Accept/decline                             |
+| Coverage              | `getCoverage`                                                    | `GET /collectives/{id}/coverage` ✔                                    | Capability coverage                        |
+| Workspace             | `getWorkspace`, `getOrCreateWorkspace`                           | `GET/POST /collectives/{id}/workspace` ✔                              | Workspace record                           |
+| Workspace items       | `listAllItems`, `createItem`                                     | `GET/POST /workspaces/{id}/items` ✔                                   | Tasks, documents, notes                    |
+| Funder coverage       | `fetchCollectiveCoverage`                                        | `GET /api/v1/collectives/{id}/coverage` ✔                             | Funder coalition detail                    |
+| Funder coalition list | `listCollectivesForOpportunity`                                  | `GET /collectives?opportunity_id=…` ✔                                 | Coalitions page                            |
+| Invite member         | `inviteMember`                                                   | `POST /collectives/{id}/members/{mid}/invite` ✔                       | Exported, not called                       |
 
 Spec endpoints with **no frontend caller**: `/auth/refresh`, `/auth/logout`, `/referrals*`, `/collectives` POST/PATCH/DELETE, members add/update, `/coverage/refresh`, `/lead-suggestion`, `/workspaces/{id}/items/{item_id}` PATCH/DELETE, `/funders*`, `/evidence/*` claims.
 
@@ -390,7 +388,6 @@ List (`funder/coalitions/page.tsx`) and detail (`[id]/page.tsx`) use `lib/funder
 | Font         | `--font-sans` = Outfit with system fallbacks                                            |
 
 The root font size is `clamp(16px, 1.1111vw, 24px)`, so all `rem` values scale with viewport width.
-
 
 **Patterns.**
 
@@ -504,7 +501,6 @@ Only `process.env` references are used; no `.env.example` exists, and `.env*` is
 | Opportunity views      | `ngoGrantCard.test.tsx`, `ngoRequirements503.test.tsx`                                    |
 | API contract           | `openapiContract.test.ts` (spec snapshot only)                                            |
 
-
 ---
 
 ## 17. Build, Deployment, and Production Behaviour
@@ -526,15 +522,3 @@ Only `process.env` references are used; no `.env.example` exists, and `.env*` is
 - Path segments in API URLs use `encodeURIComponent` in most client code.
 - Input validation on auth and grant forms; upload type/size checks before sending.
 - Token in `sessionStorage` rather than `localStorage`, so it does not persist after the tab closes.
-
-**Risks and limitations**
-
-- Logout does not clear the token or call the backend (Section 6).
-- `/funder/*` has no authentication check, and the funder layout shows a fake identity.
-- Role is never compared with the area visited (`/ngo/*` accepts any authenticated user).
-- Any XSS would expose `sessionStorage` tokens; `next.config.ts` sets no CSP or security headers.
-- The grant draft in `localStorage` persists after logout.
-- Refresh tokens are stored in the browser but never rotated or revoked.
-- Dependency audit not performed.
-
-All access control must be enforced by the backend. Hiding links or redirecting client-side only changes the interface.
