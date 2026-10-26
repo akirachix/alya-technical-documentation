@@ -1,11 +1,25 @@
 # KNode Technical Architecture & AI Integration
 
+!!! info "Status and evidence"
+    This page describes KNode's **target architecture** together with its
+    **current implementation status**. Each component and control carries a label:
+
+    | Label | Meaning |
+    | :--- | :--- |
+    | Implemented | Found in code (`alya-backend` or `alya-frontend-develop`) |
+    | Partial | Exists but incomplete or not verified on every route |
+    |  Planned | Design target; not present in the code reviewed |
+
+    **Evidence checked:** `alya-backend` @ `<commit-sha>` (`main.py`, `core/config.py`,
+    `core/security.py`, `core/dependencies.py`, `database.py`) and
+    `alya-frontend-develop` @ `<commit-sha>`. Last reviewed: 26 Oct 2026.
+    A summary of every control is in [Section 11](#11-implementation-status-summary).
 
 ---
 
 ## 1. Architecture Overview
 
-KNode is a single application with separate background processing. Users work in dashboards for NGOs, funders and administrators, which send requests to a central interface that checks identity and permissions. The interface is divided into self-contained modules, such as authentication, verification, matching and reports. Slow tasks, such as collecting data, reading documents and running AI extraction, are queued and handled by background workers, so users never wait for them. Data is stored in a PostgreSQL database and in private encrypted storage. This keeps the system simple to run, responsive, and easy to expand later.
+KNode is a single application with separate background processing. Users work in dashboards for NGOs, funders and administrators, which send requests to a central interface that checks identity and permissions. The interface is divided into self-contained modules, such as authentication, verification, matching and reports. Slow tasks, such as collecting data, reading documents and running AI extraction, are designed to be queued and handled by background workers, so users never wait for them. Data is stored in a PostgreSQL database and in private encrypted storage. This keeps the system simple to run, responsive, and easy to expand later.Some components below are implemented today and others are design targets; see Section 11 for the status of each.
 
 ### 1.1 System Architecture Diagram
 
@@ -18,22 +32,22 @@ KNode is a single application with separate background processing. Users work in
 ## 2. System Components
 
 
-| Component | Responsibility |
-| :--- | :--- |
-| **NGO and Funder dashboards** | NGOs manage profiles and upload evidence; funders create grants, discover organizations and view collectives and funding trends |
-| **Admin portal** | System monitoring, review of flagged evidence and access management |
-| **Authentication** | Login, one-time passwords, tokens and role-based access |
-| **Organization verification** | Confirms that applicants are legitimate US-registered organizations |
-| **Evidence Profiles** | Turns uploaded evidence into normalized capability profiles |
-| **Opportunity Intelligence** | Collects funding opportunities and stores them as structured records |
-| **Matching Engine** | Scores compatibility between organizations and funding opportunities using fixed rules |
-| **Collectives** | Supports coalition formation and shared workspaces |
-| **Funding Trends** | Shows funding patterns to funders |
-| **Referrals** | Manages the lifecycle of funder-to-NGO interactions |
-| **Reports** | Generates and emails platform reports |
-| **Data Ingestion Service** | Background workers that collect and parse data from external sources |
-| **AI Service Gateway** | The only route to the AI provider; sends redacted text and returns structured results |
-| **Notifications** | Sends one-time passwords, alerts and report emails |
+| Component | Responsibility | Status |
+| :--- | :--- | :--- |
+| **NGO and Funder dashboards** | NGOs manage profiles and upload evidence; funders create grants, discover organizations and view collectives and funding trends | Implemented (see [Frontend Web](frontend.md)) |
+| **Admin portal** | System monitoring, review of flagged evidence and access management |  Planned (no `/admin` routes in the frontend repo) |
+| **Authentication** | Login, one-time passwords, tokens and role-based access |  Implemented (`core/security.py`, `core/dependencies.py`) |
+| **Organization verification** | Confirms that applicants are legitimate US-registered organizations |  Implemented |
+| **Evidence Profiles** | Turns uploaded evidence into normalized capability profiles |  Implemented  |
+| **Opportunity Intelligence** | Collects funding opportunities and stores them as structured records |  Implemented  |
+| **Matching Engine** | Scores compatibility between organizations and funding opportunities using fixed rules |  Implemented (`routers/matching.py`) |
+| **Collectives** | Supports coalition formation and shared workspaces |  Partial  |
+| **Funding Trends** | Shows funding patterns to funders |  Implemented (trend chart in the NGO area; grant gap analysis absent) |
+| **Referrals** | Manages the lifecycle of funder-to-NGO interactions |  Partial  |
+| **Reports** | Generates and emails platform reports | Planned  |
+| **Data Ingestion Service** | Background workers that collect and parse data from external sources | Partial  |
+| **AI Service Gateway** | The only route to the AI provider; sends redacted text and returns structured results |  Partial (`services/ai_service.py` exists; redaction and "only route" unverified) |
+| **Notifications** | Sends one-time passwords, alerts and report emails |  Implemented (SMTP settings in `core/config.py`) |
 
 ---
 
@@ -41,13 +55,12 @@ KNode is a single application with separate background processing. Users work in
 
 ### 3.1 Data stores
 
-| Store | Contents |
-| :--- | :--- |
-| **PostgreSQL** | Users, organizations, profiles, opportunities, collectives, referrals, reports, extraction results |
-| **pgvector (same PostgreSQL instance)** | Document chunks and embeddings used for semantic search |
-| **Audit and security log store** | Authentication, access and privileged-action events |
-| **Encrypted backups** | Daily database backups in a separate region |
-
+| Store | Contents | Status |
+| :--- | :--- | :--- |
+| **PostgreSQL** | Users, organizations, profiles, opportunities, collectives, referrals, reports, extraction results |  Implemented (`database.py`) |
+| **pgvector (same PostgreSQL instance)** | Document chunks and embeddings used for semantic search |  Planned (confirm) |
+| **Audit and security log store** | Authentication, access and privileged-action events |  Partial (`audit_events` model and service exist; coverage not verified) |
+| **Encrypted backups** | Daily database backups in a separate region |  Planned |
 ### 3.2 External sources and services
 
 | Source or service | Use |
@@ -73,6 +86,10 @@ KNode is a single application with separate background processing. Users work in
 - Managed PostgreSQL, object storage and secrets management.
 - Automated testing and gated promotion to production through CI/CD, with infrastructure defined as code.
 
+**Status:** Frontend hosted on Vercel (Implemented, [[link to deployment](https://alya-frontend-dashboard.vercel.app/auth/signup)]). Backend hosting: `<platform>` (confirm).
+Separate staging/production environments, containerized worker pool, infrastructure as code and
+gated CI/CD are  Planned. Current CI only checks that the PR template is completed.
+
 ---
 
 
@@ -89,6 +106,7 @@ The security architecture is organized by layer, as shown in the Security System
 ---
 
 ## 6. Security Layers
+> Controls in this section are the **target design** unless marked Implemented or Planned in [Section 11](#11-implementation-status-summary).
 
 | Layer | Components | Security implementation |
 | :--- | :--- | :--- |
@@ -101,13 +119,16 @@ The security architecture is organized by layer, as shown in the Security System
 ---
 
 ## 7. Identity and Access Management
+> Controls in this section are the **target design** unless marked Implemented or Planned in [Section 11](#11-implementation-status-summary).
 
 ### 7.1 Authentication
 
 - Email and password with hashed passwords and a breached-password check.
 - Short-lived, single-use email OTP with attempt limits.
-- Funders and admins also use TOTP or passkeys.
-- Short-lived access tokens with rotating refresh tokens, stored in `httpOnly`, `Secure`, `SameSite` cookies. A reused refresh token revokes the whole token family, and a server-side store allows logout and account suspension.
+- Funders and admins also Planned to use TOTP or passkeys.
+- Short-lived access tokens with rotating refresh tokens, stored in `httpOnly`, `Secure`, `SameSite` cookies. A reused refresh token revokes the whole token family, and a server-side store allows logout and account suspension.  *Current state:* the backend defines a refresh cookie (`knode_refresh`), but the frontend
+  currently keeps tokens in `sessionStorage`, does not call `/auth/refresh`, and does not
+  implement logout. Cookie-based rotation is Planned for the frontend.
 - Per-account and per-IP throttling with progressive lockout.
 
 ### 7.2 Authorization
@@ -128,9 +149,10 @@ Verification status is re-checked on a schedule to detect later IRS revocations.
 ---
 
 ## 8. Data Protection and Tenant Isolation
+> Controls in this section are the **target design** unless marked Implemented or Planned in [Section 11](#11-implementation-status-summary).
 
 - **Encryption:** data is encrypted at rest and in transit, and sensitive fields are encrypted again at application level.
-- **Row-Level Security (RLS):** PostgreSQL enforces tenant isolation, so one organization can never read another's private data. Vector data follows the same policies.
+- **Row-Level Security (RLS):** PostgreSQL Row-Level Security is the planned mechanism for tenant isolation. Today, isolation relies on application-level scope checks, which are still being verified route by route.
 - **Tenant context:** the API sets the tenant for every request inside the database transaction. Application database roles cannot bypass RLS, and automated tests attempt cross-tenant access on every tenant-private table.
 - **Shared data:** published profile fields, verified capabilities and published opportunities are readable by authenticated users according to a visibility flag, so funders can discover organizations.
 - **Documents:** uploads are stored privately with SSE-KMS encryption and served only through short-lived pre-signed URLs.
@@ -140,6 +162,7 @@ Verification status is re-checked on a schedule to detect later IRS revocations.
 ---
 
 ## 9. Upload, Ingestion and AI Gateway Controls
+> Controls in this section are the **target design** unless marked Implemented or Planned in [Section 11](#11-implementation-status-summary).
 
 - **Uploads:** file type allowlist, size and page limits, content-type check, malware scan and sandboxed parsing.
 - **Ingestion:** allow-listed targets only, protection against server-side request forgery, isolated workers, and scraped content treated as untrusted.
@@ -148,10 +171,31 @@ Verification status is re-checked on a schedule to detect later IRS revocations.
 ---
 
 ## 10. Audit and Logging
+> Controls in this section are the **target design** unless marked Implemented or Planned in [Section 11](#11-implementation-status-summary).
 
 - Authentication, OTP, access and privileged-action events are logged, with critical data changes.
 - Logs are append-only and kept for 12 months.
 - Logs never contain passwords, OTPs, keys or document content.
 
 ---
+## 11. Implementation Status Summary
 
+| Control | Status | Evidence |
+| :--- | :--- | :--- |
+| Argon2 password hashing | Implemented | `core/security.py` |
+| JWT access/refresh with expiry, type and JTI revocation | Implemented | `core/security.py`, `core/dependencies.py` |
+| Email OTP with hashing and attempt limits | Implemented | `core/security.py`, `core/config.py` |
+| Role checks (`require_role`) | Implemented | `core/dependencies.py` |
+| Object-level ownership checks | Partial | `require_self_or_admin` does not compare IDs; route review in progress |
+| CORS allow-list, correlation-ID middleware | Implemented | `core/config.py`, `main.py` |
+| Audit logging | Partial | `audit_events` model and service exist; coverage unverified |
+| Login throttling / lockout | Partial | Settings exist; multi-process state unverified |
+| Cloudflare / WAF / API gateway | Planned | Not in repo |
+| Row-Level Security | Planned | Not in repo |
+| KMS, key rotation, SSE-KMS storage | Planned | Not in repo |
+| Encrypted backups and restore tests | Planned | Not in repo |
+| Background queue and worker pool | Planned | Not in repo (confirm) |
+| Malware scanning, sandboxed parsing | Planned | Not in repo (confirm) |
+| TOTP / passkeys, breached-password check | Planned | Not in repo |
+| Admin portal | Planned | No admin routes in frontend repo |
+| AI redaction before Gemini calls | Partial | Confirm in `ai_service.py` |
