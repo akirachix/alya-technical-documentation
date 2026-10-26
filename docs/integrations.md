@@ -4,14 +4,14 @@ KNode connects to a small set of third-party services. This page describes each 
 
 ## Overview
 
-| Integration | Purpose in KNode |
-|---|---|
-| [Google Gemini](#google-gemini-ai-document-extraction) | Reads uploaded documents and extracts structured facts about an organisation |
-| [Email (SMTP)](#email-delivery-smtp) | Delivers sign-up and login verification codes |
-| [PostgreSQL](#postgresql) | Stores all application data |
-| [Funding data: USAspending and Grants.gov](#funding-data-sources) | Supplies historical awards and funding opportunities |
-| [Organisation and registry sources](#organisation-and-registry-sources) | Builds organisation profiles from public information |
-| [Uploaded documents](#uploaded-documents) | Evidence supplied directly by organisations |
+| Integration                                                             | Purpose in KNode                                                             |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [Google Gemini](#google-gemini-ai-document-extraction)                  | Reads uploaded documents and extracts structured facts about an organisation |
+| [Email (SMTP)](#email-delivery-smtp)                                    | Delivers sign-up and login verification codes                                |
+| [PostgreSQL](#postgresql)                                               | Stores all application data                                                  |
+| [Funding data: USAspending and Grants.gov](#funding-data-sources)       | Supplies historical awards and funding opportunities                         |
+| [Organisation and registry sources](#organisation-and-registry-sources) | Builds organisation profiles from public information                         |
+| [Uploaded documents](#uploaded-documents)                               | Evidence supplied directly by organisations                                  |
 
 ## How the integrations fit together
 
@@ -54,20 +54,20 @@ When an organisation uploads a report, Gemini reads it and returns structured fa
 
 ### Data sent to Gemini
 
-| Sent | Never sent |
-|---|---|
+| Sent                                                                                             | Never sent                           |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------ |
 | The document content (PDF and PNG as files, DOCX as extracted text capped at 100,000 characters) | Account details, passwords or tokens |
-| The fixed instruction prompt | Other organisations' data |
-| The JSON schema for the answer | Database records |
+| The fixed instruction prompt                                                                     | Other organisations' data            |
+| The JSON schema for the answer                                                                   | Database records                     |
 
 ### Configuration
 
-| Setting | Meaning |
-|---|---|
-| `GEMINI_API_KEY` | API key for Gemini. Without it, the upload API answers `503 AI_NOT_CONFIGURED`. |
-| `GEMINI_MODEL` | Gemini model used for extraction |
-| `MAX_UPLOAD_BYTES` | Largest file accepted |
-| `UPLOAD_DIR` | Folder where uploaded files are stored |
+| Setting            | Meaning                                                                         |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`   | API key for Gemini. Without it, the upload API answers `503 AI_NOT_CONFIGURED`. |
+| `GEMINI_MODEL`     | Gemini model used for extraction                                                |
+| `MAX_UPLOAD_BYTES` | Largest file accepted                                                           |
+| `UPLOAD_DIR`       | Folder where uploaded files are stored                                          |
 
 ### Safeguards
 
@@ -80,11 +80,11 @@ When an organisation uploads a report, Gemini reads it and returns structured fa
 
 ### Failure behaviour
 
-| Situation | API response |
-|---|---|
-| No API key configured | `503` with code `AI_NOT_CONFIGURED` |
+| Situation                                        | API response                        |
+| ------------------------------------------------ | ----------------------------------- |
+| No API key configured                            | `503` with code `AI_NOT_CONFIGURED` |
 | Network error, quota exceeded or unreadable file | `502` with code `EXTRACTION_FAILED` |
-| Model output does not match the schema | `502` with code `EXTRACTION_FAILED` |
+| Model output does not match the schema           | `502` with code `EXTRACTION_FAILED` |
 
 The uploaded document is kept as a source in every case, so a failed extraction never loses the file.
 
@@ -96,29 +96,29 @@ The uploaded document is kept as a source in every case, so a failed extraction 
 
 KNode sends one-time codes by email for two purposes:
 
-| Purpose | When it is sent |
-|---|---|
-| Sign-up verification | After registration, to activate the account |
-| Login verification | After a correct email and password, to complete login |
+| Purpose              | When it is sent                                       |
+| -------------------- | ----------------------------------------------------- |
+| Sign-up verification | After registration, to activate the account           |
+| Login verification   | After a correct email and password, to complete login |
 
 Codes have six digits, expire after 10 minutes (`OTP_TTL_SECONDS`) and allow five attempts (`OTP_MAX_ATTEMPTS`). Codes are stored hashed.
 
 ### Configuration
 
-| Setting | Default | Meaning |
-|---|---|---|
-| `SMTP_HOST` | `smtp.gmail.com` | SMTP server |
-| `SMTP_PORT` | `587` | Port. The connection is upgraded with STARTTLS. |
-| `SMTP_USER` | none | Sender account |
-| `SMTP_PASSWORD` | none | Sender password. For Gmail this is an app password. |
-| `SMTP_FROM_NAME` | `KNode Alya` | Sender display name |
+| Setting          | Default          | Meaning                                             |
+| ---------------- | ---------------- | --------------------------------------------------- |
+| `SMTP_HOST`      | `smtp.gmail.com` | SMTP server                                         |
+| `SMTP_PORT`      | `587`            | Port. The connection is upgraded with STARTTLS.     |
+| `SMTP_USER`      | none             | Sender account                                      |
+| `SMTP_PASSWORD`  | none             | Sender password. For Gmail this is an app password. |
+| `SMTP_FROM_NAME` | `KNode Alya`     | Sender display name                                 |
 
 ### Behaviour by environment
 
-| `ENV` | When SMTP credentials are not set |
-|---|---|
+| `ENV`                    | When SMTP credentials are not set                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------------ |
 | `dev`, `test`, `staging` | The email is skipped and a warning is logged. In `dev` the one-time code is printed in the server log. |
-| `prod` | Sending raises an error. Credentials are mandatory. |
+| `prod`                   | Sending raises an error. Credentials are mandatory.                                                    |
 
 ### Design
 
@@ -132,11 +132,11 @@ Codes have six digits, expire after 10 minutes (`OTP_TTL_SECONDS`) and allow fiv
 
 PostgreSQL is the system of record. It holds users, organisations, funders, sources and claims, funding opportunities and awards, matches, collectives, workspaces, referrals, reports and audit events.
 
-| Setting | Meaning |
-|---|---|
+| Setting        | Meaning                                 |
+| -------------- | --------------------------------------- |
 | `DATABASE_URL` | PostgreSQL connection string (required) |
 
-All schema changes go through Alembic migrations. See the [Backend](backend.md) page for the migration workflow.
+All schema changes go through Alembic migrations. See the [Backend](backend/index.md) page for the migration workflow.
 
 ---
 
@@ -144,12 +144,12 @@ All schema changes go through Alembic migrations. See the [Backend](backend.md) 
 
 Historical awards power the Funding Trends dashboard, and open calls power opportunity search. Every record stores where it came from, so any figure can be traced to its source.
 
-| Source | Provides | Recorded as |
-|---|---|---|
-| USAspending.gov | Historical awards | `source_system = 'USASPENDING'` |
-| Grants.gov | Opportunities and awards | `source_system = 'GRANTS_GOV'` |
-| Web crawler | Opportunities and awards from funder sites | `source_system = 'CRAWLER'` |
-| Manual entry | Opportunities added by a funder or administrator | `source_system = 'MANUAL'` |
+| Source          | Provides                                         | Recorded as                     |
+| --------------- | ------------------------------------------------ | ------------------------------- |
+| USAspending.gov | Historical awards                                | `source_system = 'USASPENDING'` |
+| Grants.gov      | Opportunities and awards                         | `source_system = 'GRANTS_GOV'`  |
+| Web crawler     | Opportunities and awards from funder sites       | `source_system = 'CRAWLER'`     |
+| Manual entry    | Opportunities added by a funder or administrator | `source_system = 'MANUAL'`      |
 
 ### Data integrity rules
 
@@ -164,15 +164,15 @@ Historical awards power the Funding Trends dashboard, and open calls power oppor
 
 Organisation profiles are built from public information. Each fact keeps a link to its source and the date it was retrieved.
 
-| Source | Provides |
-|---|---|
-| IRS Business Master File (BMF) | Registration and tax-exempt status |
-| IRS Tax Exempt Organization Search (TEOS) | Status of US tax-exempt organisations |
-| IRS Form 990 and 990-PF filings | Financial information |
-| ProPublica Nonprofit Explorer | Organisation financial data |
-| Candid | Organisation profile data |
-| GlobalGiving and GlobalGiving IATI | Projects, opportunities and funder data |
-| Organisation websites and published reports | Programmes, impact and evidence |
+| Source                                      | Provides                                |
+| ------------------------------------------- | --------------------------------------- |
+| IRS Business Master File (BMF)              | Registration and tax-exempt status      |
+| IRS Tax Exempt Organization Search (TEOS)   | Status of US tax-exempt organisations   |
+| IRS Form 990 and 990-PF filings             | Financial information                   |
+| ProPublica Nonprofit Explorer               | Organisation financial data             |
+| Candid                                      | Organisation profile data               |
+| GlobalGiving and GlobalGiving IATI          | Projects, opportunities and funder data |
+| Organisation websites and published reports | Programmes, impact and evidence         |
 
 ### Rules that apply to every source
 
@@ -188,15 +188,15 @@ Organisation profiles are built from public information. Each fact keeps a link 
 
 Organisations can upload impact reports and similar documents as evidence.
 
-| Item | Rule |
-|---|---|
-| Accepted types | PDF, DOCX and PNG |
-| Validation | The file extension and the file signature must match (`%PDF` for PDF, `PK` for DOCX). Size is capped by `MAX_UPLOAD_BYTES`. |
-| Duplicates | A SHA-256 hash detects the same file uploaded twice |
-| File names | The original name is sanitised for display. Files are stored under a random name inside the organisation's own folder. |
-| Visibility | Only the owning organisation's members and administrators can see an uploaded document |
-| Audit | Every upload is written to the audit log |
-| Storage | `UPLOAD_DIR` |
+| Item           | Rule                                                                                                                        |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Accepted types | PDF, DOCX and PNG                                                                                                           |
+| Validation     | The file extension and the file signature must match (`%PDF` for PDF, `PK` for DOCX). Size is capped by `MAX_UPLOAD_BYTES`. |
+| Duplicates     | A SHA-256 hash detects the same file uploaded twice                                                                         |
+| File names     | The original name is sanitised for display. Files are stored under a random name inside the organisation's own folder.      |
+| Visibility     | Only the owning organisation's members and administrators can see an uploaded document                                      |
+| Audit          | Every upload is written to the audit log                                                                                    |
+| Storage        | `UPLOAD_DIR`                                                                                                                |
 
 ---
 
@@ -204,13 +204,13 @@ Organisations can upload impact reports and similar documents as evidence.
 
 The Next.js frontend talks only to the KNode backend, through the versioned `/api/v1` prefix.
 
-| Concern | How it works |
-|---|---|
+| Concern        | How it works                                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Authentication | A 15-minute access token is sent as a bearer token. A refresh token is kept in an HTTP-only cookie named `knode_refresh`. |
-| Cookies | Controlled by `COOKIE_SECURE`, `COOKIE_SAMESITE` and `COOKIE_DOMAIN` |
-| CORS | Only origins listed in `CORS_ALLOW_ORIGINS` are allowed. The default is `http://localhost:3000`. |
-| Errors | Every error has the shape `{"error": {"code", "message", "details"}}` |
-| API contract | The OpenAPI specification is exported from the backend and describes every endpoint |
+| Cookies        | Controlled by `COOKIE_SECURE`, `COOKIE_SAMESITE` and `COOKIE_DOMAIN`                                                      |
+| CORS           | Only origins listed in `CORS_ALLOW_ORIGINS` are allowed. The default is `http://localhost:3000`.                          |
+| Errors         | Every error has the shape `{"error": {"code", "message", "details"}}`                                                     |
+| API contract   | The OpenAPI specification is exported from the backend and describes every endpoint                                       |
 
 ---
 
@@ -218,25 +218,25 @@ The Next.js frontend talks only to the KNode backend, through the versioned `/ap
 
 Set these in `.env`. Never commit real values.
 
-| Variable | Required | Used by |
-|---|---|---|
-| `ENV` | No (default `dev`) | Email and cookie behaviour |
-| `DATABASE_URL` | Yes | PostgreSQL |
-| `JWT_SECRET` | Yes (32 or more characters) | Token signing |
-| `GEMINI_API_KEY` | For document extraction | Gemini |
-| `GEMINI_MODEL` | No | Gemini |
-| `MAX_UPLOAD_BYTES`, `UPLOAD_DIR` | No | Uploads |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_NAME` | In production | Email |
-| `CORS_ALLOW_ORIGINS` | In production | Frontend access |
+| Variable                                                                 | Required                    | Used by                    |
+| ------------------------------------------------------------------------ | --------------------------- | -------------------------- |
+| `ENV`                                                                    | No (default `dev`)          | Email and cookie behaviour |
+| `DATABASE_URL`                                                           | Yes                         | PostgreSQL                 |
+| `JWT_SECRET`                                                             | Yes (32 or more characters) | Token signing              |
+| `GEMINI_API_KEY`                                                         | For document extraction     | Gemini                     |
+| `GEMINI_MODEL`                                                           | No                          | Gemini                     |
+| `MAX_UPLOAD_BYTES`, `UPLOAD_DIR`                                         | No                          | Uploads                    |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_NAME` | In production               | Email                      |
+| `CORS_ALLOW_ORIGINS`                                                     | In production               | Frontend access            |
 
 ## Failure modes
 
-| If this is unavailable | What users see | What keeps working |
-|---|---|---|
-| Gemini | The upload succeeds and extraction answers `502` or `503` | Profile, evidence ledger, trends, login |
-| SMTP | Sign-up and login codes are not delivered | Everything for users who are already signed in |
-| PostgreSQL | All API calls fail | Static pages only |
-| A public data source | Nothing. Data stays as last imported. | Everything |
+| If this is unavailable | What users see                                            | What keeps working                             |
+| ---------------------- | --------------------------------------------------------- | ---------------------------------------------- |
+| Gemini                 | The upload succeeds and extraction answers `502` or `503` | Profile, evidence ledger, trends, login        |
+| SMTP                   | Sign-up and login codes are not delivered                 | Everything for users who are already signed in |
+| PostgreSQL             | All API calls fail                                        | Static pages only                              |
+| A public data source   | Nothing. Data stays as last imported.                     | Everything                                     |
 
 ## Testing integrations locally
 
@@ -245,4 +245,4 @@ Set these in `.env`. Never commit real values.
 3. **No AI key.** Remove `GEMINI_API_KEY` and confirm the upload API answers `503 AI_NOT_CONFIGURED`.
 4. **Automated tests.** Run `uv run --no-sync --active pytest`.
 
-See also: [Architecture](architecture.md), [Backend](backend.md), [AI Service](ai.md) and the [Glossary](glossary.md).
+See also: [Architecture](architecture.md), [Backend](backend/index.md), [AI Service](ai.md) and the [Glossary](glossary.md).
