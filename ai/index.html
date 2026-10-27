@@ -1,0 +1,1596 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for KNode, an evidence-based matchmaking platform connecting African NGOs, collectives and funders.">
+      
+      
+      
+        <link rel="canonical" href="https://akirachix.github.io/alya-technical-documentation/ai/">
+      
+      
+        <link rel="prev" href="../backend/testing/">
+      
+      
+        <link rel="next" href="../frontend/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/knode-logo-light.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>AI Service - KNode Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-service" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KNode Documentation" class="md-header__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KNode Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI Service
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KNode Documentation" class="md-nav__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    KNode Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../backend/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database and Migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/authentication-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication and Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/matching-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matching Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Service
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#where-ai-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where AI is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calling Gemini
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-organisation-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Organisation extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-opportunity-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Opportunity extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-requirement-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Requirement assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-match-is-scored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a match is scored
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How a match is scored">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guardrails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guardrails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#where-ai-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where AI is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calling Gemini
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-organisation-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Organisation extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-opportunity-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Opportunity extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-requirement-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Requirement assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-match-is-scored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a match is scored
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How a match is scored">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guardrails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guardrails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ai-service">AI Service<a class="headerlink" href="#ai-service" title="Permanent link">¶</a></h1>
+<p>KNode uses Gemini for three jobs: reading organisation information, reading funding calls, and checking evidence against requirements. Everything else, including scores and eligibility, is calculated by fixed rules.</p>
+<h2 id="where-ai-is-used">Where AI is used<a class="headerlink" href="#where-ai-is-used" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Entry point</th>
+<th>Trigger</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>services/jobs/scraper.py</code></td>
+<td>Background job</td>
+<td>Finds an organisation's website and extracts its profile</td>
+</tr>
+<tr>
+<td><code>services/jobs/midnight_scraper.py</code></td>
+<td>Scheduled job (10 organisations per run)</td>
+<td>Finds an organisation's website and extracts its profile, in small batches</td>
+</tr>
+<tr>
+<td><code>services/jobs/process_grants.py</code></td>
+<td>Background job</td>
+<td>Extracts structured requirements from stored grants (50 per run)</td>
+</tr>
+<tr>
+<td><code>services/jobs/midnight_grants.py</code></td>
+<td>Scheduled job (10 grants per run)</td>
+<td>Pulls Africa-related grants from Grants.gov and extracts them</td>
+</tr>
+<tr>
+<td><code>POST /opportunities/extract</code></td>
+<td>Funder or admin uploads a file</td>
+<td>Returns a draft opportunity for review</td>
+</tr>
+<tr>
+<td><code>POST /organisations/{id}/documents</code></td>
+<td>User uploads a document</td>
+<td>Extracts profile facts into <code>PENDING</code> claims</td>
+</tr>
+<tr>
+<td>Matching engine</td>
+<td>Match request</td>
+<td>Checks evidence against each requirement (off by default)</td>
+</tr>
+</tbody>
+</table>
+<p>The model is set by <code>GEMINI_MODEL</code> (default <code>gemini-3.8-flash</code>). Every call needs <code>GEMINI_API_KEY</code>.</p>
+<h2 id="calling-gemini">Calling Gemini<a class="headerlink" href="#calling-gemini" title="Permanent link">¶</a></h2>
+<p>The backend makes three kinds of call. All three ask for JSON back.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Client setup</label><label for="__tabbed_1_2">Extract from text</label><label for="__tabbed_1_3">Extract from a file</label><label for="__tabbed_1_4">Assess a requirement</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><code>services/ai_service.py</code> builds one shared client. It uses an API key if present, and otherwise Vertex AI.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google</span><span class="w"> </span><span class="kn">import</span> <span class="n">genai</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">_build_client</span><span class="p">():</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">GEMINI_API_KEY</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="k">return</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GEMINI_API_KEY</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">GCP_PROJECT_ID</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="k">return</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="n">vertexai</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="n">project</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GCP_PROJECT_ID</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            <span class="n">location</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GCP_REGION</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">client</span> <span class="o">=</span> <span class="n">_build_client</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Used for website text and funding calls. The response is forced into a Pydantic schema, and the temperature is low so results are stable.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">google.genai</span><span class="w"> </span><span class="kn">import</span> <span class="n">types</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GEMINI_MODEL</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">contents</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">config</span><span class="o">=</span><span class="n">types</span><span class="o">.</span><span class="n">GenerateContentConfig</span><span class="p">(</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">response_mime_type</span><span class="o">=</span><span class="s2">"application/json"</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">response_schema</span><span class="o">=</span><span class="n">ExtractedEvidence</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">temperature</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">),</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>The scraped text goes inside <code>&lt;untrusted_text&gt;</code> tags, and the prompt tells the model to ignore any instructions found there.</p>
+</div>
+<div class="tabbed-block">
+<p><code>services/document_extraction.py</code> sends the uploaded PDF, image or text directly to Gemini and validates the reply against a schema.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">client</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GEMINI_API_KEY</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">interaction</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">interactions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">model</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">GEMINI_MODEL</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">input</span><span class="o">=</span><span class="n">_input_items</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">response_format</span><span class="o">=</span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"text"</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="s2">"mime_type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="s2">"schema"</span><span class="p">:</span> <span class="n">ExtractedProfile</span><span class="o">.</span><span class="n">model_json_schema</span><span class="p">(),</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">},</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">profile</span> <span class="o">=</span> <span class="n">ExtractedProfile</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span><span class="n">interaction</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
+</code></pre></div>
+<p>If the reply fails validation, the upload is rejected and nothing is saved.</p>
+</div>
+<div class="tabbed-block">
+<p><code>services/matching_engine/gemini_provider.py</code> uses temperature 0 and a separate system instruction. It also sets a timeout.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GenAIJsonGenerator</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">google</span><span class="w"> </span><span class="kn">import</span> <span class="n">genai</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="kn">from</span><span class="w"> </span><span class="nn">google.genai</span><span class="w"> </span><span class="kn">import</span> <span class="n">types</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_types</span> <span class="o">=</span> <span class="n">types</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="n">http_options</span><span class="o">=</span><span class="n">types</span><span class="o">.</span><span class="n">HttpOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout_seconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)),</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>            <span class="n">contents</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_types</span><span class="o">.</span><span class="n">GenerateContentConfig</span><span class="p">(</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>                <span class="n">system_instruction</span><span class="o">=</span><span class="n">system</span><span class="p">,</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>                <span class="n">temperature</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>                <span class="n">response_mime_type</span><span class="o">=</span><span class="s2">"application/json"</span><span class="p">,</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>            <span class="p">),</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="p">)</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="1-organisation-extraction">1. Organisation extraction<a class="headerlink" href="#1-organisation-extraction" title="Permanent link">¶</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">From a website</label><label for="__tabbed_2_2">From an uploaded document</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Code:</strong> <code>jobs/scraper.py</code>, <code>jobs/midnight_scraper.py</code></p>
+<ol>
+<li>Organisations are loaded from the IRS tax-exempt file (up to 100 per run; health, livelihoods and Africa-related names).</li>
+<li>A Serper search finds the official website (social media and directory sites are skipped).</li>
+<li>The page is scraped. If it has under 200 characters, the website is discarded.</li>
+<li>Gemini extracts the mission, capabilities, countries and focus areas.</li>
+<li>If both a mission and capabilities came back, they are saved onto the organisation.</li>
+<li>The job waits 4 seconds between organisations.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">No review step on this path</p>
+<p>Website results are written directly onto the organisation record. They do not create <code>PENDING</code> claims or a source record.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p><strong>Endpoint:</strong> <code>POST /organisations/{organisation_id}/documents</code> (multipart form, field <code>file</code>)</p>
+<ul>
+<li>Accepts PDF, PNG and DOCX. DOCX is converted to text first.</li>
+<li>Each fact becomes a <code>PENDING</code> claim linked to a source record.</li>
+<li>The response returns <code>source_id</code>, <code>fields_updated</code>, <code>claims_added</code> and the updated organisation.</li>
+<li>A person moves each claim to <code>CONFIRMED</code> or <code>DISPUTED</code>. Only <code>CONFIRMED</code> claims are used in matching.</li>
+</ul>
+</div>
+</div>
+</div>
+<p><strong>Prompt rules:</strong> extract only what is explicitly stated, focus area must be <code>HEALTH</code> or <code>LIVELIHOODS</code>, and countries must be African.</p>
+<p><strong>Cleaning:</strong> HTML is stripped and lengths are capped (mission 200 characters, 10 capabilities, 15 countries). Any error returns an empty result, so a failed call never invents data.</p>
+<p>From <code>tests/test_ai_pipeline.py</code>, for the text <em>"We provide clean water in Kenya."</em>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"mission"</span><span class="p">:</span><span class="w"> </span><span class="s2">"To provide clean water."</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"WASH"</span><span class="p">],</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"countries_of_operation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Kenya"</span><span class="p">],</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">"focus_areas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"HEALTH"</span><span class="p">]</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="2-opportunity-extraction">2. Opportunity extraction<a class="headerlink" href="#2-opportunity-extraction" title="Permanent link">¶</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">From Grants.gov</label><label for="__tabbed_3_2">From stored grants</label><label for="__tabbed_3_3">From an uploaded file</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Code:</strong> <code>jobs/midnight_grants.py</code></p>
+<ol>
+<li>Searches the Grants.gov API for the keyword <code>Africa</code>, posted in the last 60 days (20 rows).</li>
+<li>Skips any grant already stored.</li>
+<li>Fetches the grant's description and sends it to Gemini.</li>
+<li>Saves it only if Gemini returned a title and at least one requirement.</li>
+<li>Creates the funder if it does not exist yet, then the opportunity and each requirement.</li>
+<li>Saved with source <code>GRANTS_GOV</code>, status <code>OPEN</code> and currency <code>USD</code>.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p><strong>Code:</strong> <code>jobs/process_grants.py</code></p>
+<p>Processes up to 50 grants per run, 7 seconds apart. Opportunities that have a description but no requirements yet are extracted and updated.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Endpoint:</strong> <code>POST /opportunities/extract</code> (funder or admin only)</p>
+<p>Accepts a PDF, DOCX or TXT up to 10 MB and returns a <strong>draft</strong> opportunity. Nothing is saved until the funder reviews it and creates the opportunity.</p>
+</div>
+</div>
+</div>
+<p>The model returns no title, which rejects the call, when it is for a non-African region, is not an open call organisations can apply to, or is already past its deadline. Amounts are copied as written and never converted. With no currency stated, both amounts are set to null. At most 30 requirements are kept, each with a type (<code>eligibility</code>, <code>geography</code>, <code>thematic_fit</code>, <code>financial_capacity</code>, <code>partnership</code> or <code>evidence</code>).</p>
+<p>From <code>tests/test_opportunity_extract.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Clean water grants"</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">"funder_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Water Fund"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">"eligible_geographies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Kenya"</span><span class="p">],</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">"eligible_organisation_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"NGO"</span><span class="p">],</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">"grant_min"</span><span class="p">:</span><span class="w"> </span><span class="mf">20000.0</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">"grant_max"</span><span class="p">:</span><span class="w"> </span><span class="mf">100000.0</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nt">"deadline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2099-03-01"</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nt">"focus_areas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"HEALTH"</span><span class="p">],</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="nt">"requirements"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">      </span><span class="nt">"requirement_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Be a registered nonprofit"</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">      </span><span class="nt">"requirement_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eligibility"</span><span class="p">,</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">      </span><span class="nt">"is_mandatory"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="3-requirement-assessment">3. Requirement assessment<a class="headerlink" href="#3-requirement-assessment" title="Permanent link">¶</a></h2>
+<p><strong>Code:</strong> <code>matching_engine/gemini_provider.py</code>, <code>assessment.py</code></p>
+<p>Turned on with <code>AI_ASSESSMENT_ENABLED=true</code>. For one requirement, the system finds up to 5 of the organisation's <code>CONFIRMED</code> claims by keyword overlap and asks Gemini for a verdict. If nothing overlaps, no call is made and the result is <code>UNKNOWN</code>.</p>
+<p>The prompt built for the requirement <code>youth digital skills programme</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&lt;&lt;&lt;REQUIREMENT
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>youth digital skills programme
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>REQUIREMENT&gt;&gt;&gt;
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>&lt;&lt;&lt;EVIDENCE P1
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>We delivered a youth digital skills programme across Kenya in 2024. Contact: [email removed]
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>EVIDENCE&gt;&gt;&gt;
+</code></pre></div>
+<p>The reply Gemini must give:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MET"</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">"passage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P1"</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">"quote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"youth digital skills programme"</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">"reasoning"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The passage states the programme was delivered."</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Safeguards</strong></p>
+<ul>
+<li>Possible statuses: <code>MET</code>, <code>PARTIALLY_MET</code>, <code>NOT_MET</code>, <code>UNKNOWN</code>. Unclear or missing evidence is <code>UNKNOWN</code>, never <code>NOT_MET</code>.</li>
+<li>The quote must appear in the cited passage. If not, the result becomes <code>UNKNOWN</code> and is flagged for review.</li>
+<li>Database IDs never reach the model, emails are masked, and <code>&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;</code> are removed from evidence.</li>
+<li>A failed call is retried up to 2 times. If it still fails, the result is <code>ERROR</code>, which is not counted as a finding.</li>
+</ul>
+<h2 id="how-a-match-is-scored">How a match is scored<a class="headerlink" href="#how-a-match-is-scored" title="Permanent link">¶</a></h2>
+<p>Four steps. Only step 2 uses AI.</p>
+<ol>
+<li><strong>Eligibility</strong> (rules): deadline not passed, geography overlap, organisation type.</li>
+<li><strong>Assessment</strong> (AI, optional): each requirement gets a status.</li>
+<li><strong>Score</strong> (rules): weighted by category, out of 100.</li>
+<li><strong>Explanation</strong> (template): built from the score and its breakdown.</li>
+</ol>
+<details class="info">
+<summary>Eligibility rules</summary>
+</details>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deadline passed</td>
+<td><code>FAILED</code></td>
+</tr>
+<tr>
+<td>Deadline not passed</td>
+<td><code>SATISFIED</code></td>
+</tr>
+<tr>
+<td>Geography overlaps the organisation's countries</td>
+<td><code>SATISFIED</code></td>
+</tr>
+<tr>
+<td>No geography overlap</td>
+<td><code>UNKNOWN</code> (not a failure)</td>
+</tr>
+<tr>
+<td>Opportunity lists organisation types</td>
+<td><code>UNKNOWN</code> (not yet checked)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>Overall: `INELIGIBLE` if any condition failed, `ELIGIBLE` if all are satisfied, otherwise `NEEDS_VERIFICATION`.
+</code></pre></div>
+<details class="info">
+<summary>Score weights (match-score-v1)</summary>
+</details>
+<p><code>MET</code> counts 4, <code>PARTIALLY_MET</code> counts 2, <code>NOT_MET</code> counts 0, out of 4.</p>
+<div class="highlight"><pre><span></span><code>| Category | Weight |
+|---|---|
+| Programme strategic alignment | 25% |
+| Programme delivery capability | 25% |
+| Experience and track record | 20% |
+| Target population and context | 15% |
+| Team capacity | 15% |
+
+Unassessed requirements (`UNKNOWN`, `NOT_CHECKED`, `ERROR`) are left out of the score and lower the **evidence coverage**. Score status is `COMPLETE`, `PROVISIONAL` or `NOT_CALCULABLE`. If the funding call publishes its own weights, those replace the defaults.
+</code></pre></div>
+<h3 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">¶</a></h3>
+<p>Five requirements, one per category. Four are assessed, one has no evidence.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Status</th>
+<th>Weight</th>
+<th>Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Programme strategic alignment</td>
+<td><code>MET</code></td>
+<td>0.25</td>
+<td>0.250</td>
+</tr>
+<tr>
+<td>Programme delivery capability</td>
+<td><code>PARTIALLY_MET</code></td>
+<td>0.25</td>
+<td>0.125</td>
+</tr>
+<tr>
+<td>Experience and track record</td>
+<td><code>MET</code></td>
+<td>0.20</td>
+<td>0.200</td>
+</tr>
+<tr>
+<td>Target population and context</td>
+<td><code>UNKNOWN</code></td>
+<td>0.15</td>
+<td>not scored</td>
+</tr>
+<tr>
+<td>Team capacity</td>
+<td><code>MET</code></td>
+<td>0.15</td>
+<td>0.150</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>(0.250 + 0.125 + 0.200 + 0.150) / 0.85 × 100 = 85.3
+</code></pre></div>
+<p>Result: score <strong>85.3</strong>, status <code>PROVISIONAL</code>, evidence coverage <strong>85%</strong>. The unknown requirement is left out, not counted as a failure. The same inputs always give the same score.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEMINI_API_KEY</code></td>
+<td>none</td>
+<td>Enables all Gemini calls</td>
+</tr>
+<tr>
+<td><code>GCP_PROJECT_ID</code>, <code>GCP_REGION</code></td>
+<td>none</td>
+<td>Vertex AI fallback (<code>ai_service.py</code> only)</td>
+</tr>
+<tr>
+<td><code>GEMINI_MODEL</code></td>
+<td><code>gemini-3.8-flash</code></td>
+<td>Model used by every call</td>
+</tr>
+<tr>
+<td><code>AI_ASSESSMENT_ENABLED</code></td>
+<td><code>false</code></td>
+<td>Turns on requirement assessment</td>
+</tr>
+<tr>
+<td><code>AI_BULK_ASSESSMENT_ENABLED</code></td>
+<td><code>false</code></td>
+<td>Allows assessment across many organisations</td>
+</tr>
+<tr>
+<td><code>GEMINI_TIMEOUT_SECONDS</code></td>
+<td><code>30</code></td>
+<td>Per-call timeout (assessment)</td>
+</tr>
+<tr>
+<td><code>GEMINI_MAX_RETRIES</code></td>
+<td><code>2</code></td>
+<td>Retries with backoff (assessment)</td>
+</tr>
+<tr>
+<td><code>AI_MAX_TEXT_LENGTH</code></td>
+<td><code>20000</code></td>
+<td>Text sent to extraction is cut to this length</td>
+</tr>
+</tbody>
+</table>
+<h2 id="guardrails">Guardrails<a class="headerlink" href="#guardrails" title="Permanent link">¶</a></h2>
+<p>These controls apply to the AI itself: what goes into the model, what comes out, and what it is allowed to do.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><input id="__tabbed_4_3" name="__tabbed_4" type="radio"><input id="__tabbed_4_4" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Before the model</label><label for="__tabbed_4_2">After the model</label><label for="__tabbed_4_3">Human oversight</label><label for="__tabbed_4_4">When the AI fails</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li>Scraped text, documents and evidence are wrapped in markers and labelled as untrusted. The model is told to ignore any instructions inside them.</li>
+<li>Any marker text found inside the input is removed first, so content cannot close the block early.</li>
+<li>Text sent for extraction is cut to <code>AI_MAX_TEXT_LENGTH</code> (20,000 characters).</li>
+<li>Assessment prompts contain no database IDs and no organisation names. Evidence passages are labelled <code>P1</code>, <code>P2</code> and so on, and mapped back afterwards.</li>
+<li>Email addresses in evidence are replaced with <code>[email removed]</code>.</li>
+<li>Prompts tell the model not to guess. Missing information must be left out.</li>
+<li>Assessment runs at temperature 0 and extraction at 0.1, so results stay stable.</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forced schema</td>
+<td>Replies must be JSON matching a Pydantic schema. A reply that fails validation is rejected and nothing is saved.</td>
+</tr>
+<tr>
+<td>Field limits</td>
+<td>Mission 5,000 characters, up to 30 capabilities, 60 countries, 12 impact metrics, 20 other facts</td>
+</tr>
+<tr>
+<td>Number checks</td>
+<td>Annual revenue cannot be negative. Currency must be three capital letters.</td>
+</tr>
+<tr>
+<td>Allowed values</td>
+<td>Focus areas are limited to <code>HEALTH</code> and <code>LIVELIHOODS</code>. Other values are dropped.</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>Tags are stripped from every text field</td>
+</tr>
+<tr>
+<td>Quotes</td>
+<td>An assessment must quote the passage it cites. If the quote is not in that passage, the result becomes <code>UNKNOWN</code> and is flagged for review.</td>
+</tr>
+<tr>
+<td>No evidence, no verdict</td>
+<td>An assessed status with no evidence reference is downgraded to <code>UNKNOWN</code>.</td>
+</tr>
+<tr>
+<td>Unclear evidence</td>
+<td>Treated as <code>UNKNOWN</code>, never <code>NOT_MET</code>. <code>NOT_MET</code> needs a passage that contradicts the requirement.</td>
+</tr>
+<tr>
+<td>Grant checks</td>
+<td>A call with no title is rejected. Past deadlines, non-African regions and non-open calls are rejected.</td>
+</tr>
+<tr>
+<td>Money</td>
+<td>Amounts are copied as written. Nothing is converted or guessed.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Facts the AI extracts from uploaded documents are saved as <code>PENDING</code> claims. A person must confirm or dispute each one.</li>
+<li>Only <code>CONFIRMED</code> claims are used as evidence when the AI assesses a requirement.</li>
+<li>A funding call extracted from an upload comes back as a draft. Nothing is saved until the funder reviews and submits it.</li>
+<li>The AI does not write the match explanation or calculate the score. Both come from fixed rules, so they cannot contain claims the AI made up.</li>
+<li>Assessment is switched off by default and must be enabled with <code>AI_ASSESSMENT_ENABLED</code>.</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No API key</td>
+<td>Document extraction returns <code>503</code> (<code>AI_NOT_CONFIGURED</code>). Assessment is skipped.</td>
+</tr>
+<tr>
+<td>Call fails or times out</td>
+<td>Document extraction returns <code>502</code> (<code>EXTRACTION_FAILED</code>). Assessment is retried up to 2 times with backoff, then recorded as <code>ERROR</code>.</td>
+</tr>
+<tr>
+<td>Reply is invalid</td>
+<td>Rejected. No data is saved.</td>
+</tr>
+<tr>
+<td>Website extraction returns nothing usable</td>
+<td>The website is discarded and no organisation fields are changed</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Only the error type is logged, not the document content</td>
+</tr>
+</tbody>
+</table>
+<p>An assessment <code>ERROR</code> is not counted as a finding about the organisation. It is left out of the score and lowers the evidence coverage.</p>
+</div>
+</div>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">What the AI must never do</p>
+<ul>
+<li>Decide who receives funding</li>
+<li>Verify an organisation on its own</li>
+<li>Declare an organisation legitimate without evidence</li>
+<li>Approve organisations or form binding partnerships</li>
+<li>Make legal decisions</li>
+<li>Guarantee that an organisation will qualify for or win a grant</li>
+<li>Replace funder due diligence</li>
+</ul>
+</div>
+<h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../architecture/">Architecture</a></li>
+<li><a href="../backend/">Backend</a></li>
+<li><a href="../integrations/">Integrations</a></li>
+<li><a href="../glossary/">Glossary</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      KNode — evidence-based matchmaking for African NGOs and funders.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link", "navigation.expand"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

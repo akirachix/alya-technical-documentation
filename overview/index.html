@@ -1,0 +1,2048 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for KNode, an evidence-based matchmaking platform connecting African NGOs, collectives and funders.">
+      
+      
+      
+        <link rel="canonical" href="https://akirachix.github.io/alya-technical-documentation/overview/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/knode-logo-light.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Overview - KNode Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#knode" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KNode Documentation" class="md-header__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KNode Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KNode Documentation" class="md-nav__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    KNode Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-problem-and-product-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Problem and product purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-users-and-product-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Users and product areas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Users and product areas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-primary-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Primary users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-main-product-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Main product areas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-frontend-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Frontend experience
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Frontend experience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-hosted-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Hosted entry point
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-frontend-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Frontend responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-frontend-status-and-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Frontend status and evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-end-to-end-solution-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. End-to-end solution architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. End-to-end solution architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-frontend-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Frontend layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-backendapi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Backend/API layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-data-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Data layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-ai-and-external-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 AI and external services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-core-user-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Core user workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Core user workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-registration-and-account-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Registration and account access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-opportunity-discovery-and-structuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Opportunity discovery and structuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-evidence-profile-and-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Evidence profile and review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-opportunity-matching-and-gap-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Opportunity matching and gap analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-complementary-partner-discovery-and-collectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Complementary partner discovery and collectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-funder-discovery-referrals-and-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Funder discovery, referrals, and reports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-trends-and-gap-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 Trends and gap analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ai-boundaries-and-evidence-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. AI boundaries and evidence principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-security-privacy-and-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Security, privacy, and governance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-technology-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Technology overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-implementation-status-and-verification-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Implementation status and verification matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Implementation status and verification matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status vocabulary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-limitations-and-open-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key limitations and open decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-recommended-validation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Recommended validation plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Glossary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-source-documents-and-related-technical-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Source documents and related technical pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../backend/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database and Migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/authentication-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication and Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/matching-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matching Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-problem-and-product-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Problem and product purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-users-and-product-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Users and product areas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Users and product areas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-primary-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Primary users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-main-product-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Main product areas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-frontend-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Frontend experience
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Frontend experience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-hosted-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Hosted entry point
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-frontend-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Frontend responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-frontend-status-and-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Frontend status and evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-end-to-end-solution-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. End-to-end solution architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. End-to-end solution architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-frontend-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Frontend layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-backendapi-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Backend/API layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-data-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Data layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-ai-and-external-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 AI and external services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-core-user-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Core user workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Core user workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-registration-and-account-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Registration and account access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-opportunity-discovery-and-structuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Opportunity discovery and structuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-evidence-profile-and-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Evidence profile and review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-opportunity-matching-and-gap-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Opportunity matching and gap analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-complementary-partner-discovery-and-collectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Complementary partner discovery and collectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-funder-discovery-referrals-and-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Funder discovery, referrals, and reports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-trends-and-gap-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 Trends and gap analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ai-boundaries-and-evidence-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. AI boundaries and evidence principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-security-privacy-and-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Security, privacy, and governance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-technology-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Technology overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-implementation-status-and-verification-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Implementation status and verification matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Implementation status and verification matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status vocabulary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-limitations-and-open-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key limitations and open decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-recommended-validation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Recommended validation plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Glossary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-source-documents-and-related-technical-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Source documents and related technical pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="knode">KNode<a class="headerlink" href="#knode" title="Permanent link">¶</a></h1>
+<h2 id="1-executive-summary">1. Executive summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">¶</a></h2>
+<p>KNode is an AI-assisted platform intended to help African-focused nonprofit organisations discover relevant funding opportunities, present evidence of their capabilities, and identify organisations whose capabilities complement their own. It also supports funders who need to review organisations and proposed collectives against opportunity requirements. Its goal is to make funding discovery and collaboration more evidence-based, explainable, and accessible without replacing human judgement.</p>
+<p>The product combines several layers:</p>
+<ul>
+<li><strong>Web frontend:</strong> the user-facing experience for account access and the organisation- and funder-facing workflows. The supplied hosted entry point is the sign-up page. Project context indicates a React/Next.js frontend; the frontend source was not part of the backend repository archive reviewed for this document.</li>
+<li><strong>Backend API:</strong> a FastAPI application that validates requests, applies business rules, coordinates feature services, enforces access controls where implemented, and returns data to the frontend.</li>
+<li><strong>Data layer:</strong> PostgreSQL is the configured target database. The product data model covers users, organisations, funders, opportunities, requirements, evidence, matching runs and results, collectives, referrals, workspaces, reports, and audit events.</li>
+<li><strong>AI and document intelligence:</strong> AI-assisted extraction and requirement assessment can structure information from funding calls and organisation documents. Results should remain traceable to source evidence and visibly distinguish known facts from generated or uncertain content.</li>
+<li><strong>Operational integrations:</strong> external AI providers, email delivery, and permitted public information sources support extraction, reporting, and discovery when configured and approved.</li>
+</ul>
+<p>KNode should be understood as a <strong>decision-support platform</strong>, not an automated grant-award system. A match or partner suggestion does not confirm legal eligibility, organisational legitimacy, partner consent, or the likelihood of receiving funding.</p>
+<h2 id="2-problem-and-product-purpose">2. Problem and product purpose<a class="headerlink" href="#2-problem-and-product-purpose" title="Permanent link">¶</a></h2>
+<p>Organisations often have to search across multiple websites, reports, registries, and informal networks to find suitable funding. Funding calls are commonly written as long, unstructured documents, while evidence of an organisation's work can be spread across annual reports, project pages, financial filings, and other public material. Funders face the corresponding challenge of assessing organisations and combinations of organisations without having enough time to reconstruct the evidence manually.</p>
+<p>KNode's core problem statement is:</p>
+<blockquote>
+<p>Organisations struggle to match their capabilities with complementary partners to meet funding requirements, while funders struggle to assess the combined capabilities and track record of collaboratives.</p>
+</blockquote>
+<p>The product is intended to help users answer questions such as:</p>
+<ul>
+<li>What funding opportunities are relevant, and where did each opportunity come from?</li>
+<li>What does a funding call require, including eligibility, geography, thematic priorities, deadlines, and partnership rules?</li>
+<li>What evidence supports an organisation's profile and its ability to meet a requirement?</li>
+<li>Which requirements appear met, partly met, unknown, or unsupported by the available evidence?</li>
+<li>Which other organisations might complement a capability gap for a particular opportunity?</li>
+<li>How could a proposed collective cover the opportunity's requirements, and what gaps remain?</li>
+<li>What should a funder review before deciding whether to engage with an organisation or collective?</li>
+</ul>
+<h2 id="3-users-and-product-areas">3. Users and product areas<a class="headerlink" href="#3-users-and-product-areas" title="Permanent link">¶</a></h2>
+<h3 id="31-primary-users">3.1 Primary users<a class="headerlink" href="#31-primary-users" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>User group</th>
+<th>Main needs</th>
+<th>Intended product areas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organisation users (NGOs/NPOs)</td>
+<td>Maintain an evidence-backed profile, discover opportunities, understand gaps, and find potential complementary partners</td>
+<td>Organisation profile, opportunity discovery, matching results, partner suggestions, collective builder/workspace, reports, and trend/gap analysis</td>
+</tr>
+<tr>
+<td>Funder users</td>
+<td>Publish or review opportunities, assess organisations and proposed collectives, and refer relevant organisations</td>
+<td>Funder profile, opportunity management, organisation/collective discovery, evidence review, shortlists/referrals, and reports</td>
+</tr>
+<tr>
+<td>KNode administrators/reviewers</td>
+<td>Support platform operations, investigate flagged or uncertain records, and oversee access or quality processes</td>
+<td>Administrative and review workflows, audit-related records, and operational controls; the exact UI and permissions require implementation verification</td>
+</tr>
+<tr>
+<td>Collective members</td>
+<td>Coordinate contributions and responsibilities around a funding opportunity</td>
+<td>Collective membership, invitations, roles, tasks, notes, documents/links, requirement checklists, and gap tracking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-main-product-areas">3.2 Main product areas<a class="headerlink" href="#32-main-product-areas" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Account access and profiles</strong> — account registration and authentication, organisation/funder profile information, and role-aware access.</li>
+<li><strong>Opportunity intelligence and search</strong> — discover opportunities, preserve their source and verification state, and structure long calls into comparable requirements.</li>
+<li><strong>Evidence profiles and evidence ledger</strong> — collect or upload source material, extract claims, preserve provenance and evidence status, and allow appropriate review/correction.</li>
+<li><strong>Opportunity matching</strong> — compare opportunity requirements with available organisational evidence and show the reasoning and information gaps.</li>
+<li><strong>Complementary organisation discovery</strong> — suggest potential partners based on capabilities, geography, programmes, and evidence gaps, not popularity or network size.</li>
+<li><strong>Collective builder and workspace</strong> — assemble potential collaborators, understand collective-level coverage, and coordinate work for a shared opportunity.</li>
+<li><strong>Funder discovery and referrals</strong> — help funders review relevant organisations or collectives and create referrals with clear status and context.</li>
+<li><strong>Reports and notifications</strong> — deliver useful results and updates, including email reports when the relevant delivery integration is configured.</li>
+<li><strong>Trend and gap analysis</strong> — present funding trends and identify information or capability gaps relevant to an organisation and an opportunity.</li>
+</ol>
+<p>These areas describe the product scope from the requirements and data model. They do not imply that every screen or end-to-end workflow is currently complete in the deployed frontend.</p>
+<h2 id="4-frontend-experience">4. Frontend experience<a class="headerlink" href="#4-frontend-experience" title="Permanent link">¶</a></h2>
+<h3 id="41-hosted-entry-point">4.1 Hosted entry point<a class="headerlink" href="#41-hosted-entry-point" title="Permanent link">¶</a></h3>
+<p>The hosted frontend URL supplied for this document is:</p>
+<ul>
+<li><a href="https://alya-frontend-dashboard.vercel.app/auth/signup">KNode sign-up page</a></li>
+</ul>
+<p>The URL identifies the sign-up route of the deployed frontend. Frontend source context available for this project also includes a KNode application shell with navigation entries for <strong>Dashboard</strong>, <strong>My Collectives</strong>, <strong>Trend Analysis</strong>, and <strong>Organisation Profile</strong>. These entries establish intended frontend areas, but a navigation link does not prove that the destination page is complete or connected to live data. The hosted page could not be fetched in the current review environment, so this document does not make claims about its current visual layout, exact fields, validation messages, or successful connection to the production API. Those details should be verified in a browser and against the current frontend source before being treated as confirmed behaviour.</p>
+<h3 id="42-frontend-responsibilities">4.2 Frontend responsibilities<a class="headerlink" href="#42-frontend-responsibilities" title="Permanent link">¶</a></h3>
+<p>At a solution level, the frontend is the interaction layer. It should:</p>
+<ul>
+<li>present account registration and sign-in flows appropriate to user roles;</li>
+<li>collect and validate user input before sending API requests;</li>
+<li>display organisation/funder information, opportunities, evidence, matching results, and collective/referral workflows as those screens become available;</li>
+<li>make evidence provenance, review status, unknown information, and AI-generated content understandable to users;</li>
+<li>show loading, empty, success, validation, permission, and service-error states rather than treating every response as success;</li>
+<li>respect the access decisions made by the backend and avoid relying on client-side role checks as the security boundary; and</li>
+<li>use the KNode API rather than connecting directly to the database, AI model, or source-data providers.</li>
+</ul>
+<h3 id="43-frontend-status-and-evidence">4.3 Frontend status and evidence<a class="headerlink" href="#43-frontend-status-and-evidence" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Current evidence</th>
+<th>Documentation status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hosted web entry point</td>
+<td>User-provided Vercel sign-up URL</td>
+<td>URL supplied; runtime page not independently inspected during this pass</td>
+</tr>
+<tr>
+<td>Frontend framework</td>
+<td>Project context indicates React/Next.js</td>
+<td>Confirm against the frontend repository's <code>package.json</code> and application configuration</td>
+</tr>
+<tr>
+<td>Frontend source and page inventory</td>
+<td>Project context identifies the application shell navigation (Dashboard, My Collectives, Trend Analysis, Organisation Profile) and a sign-up page; the frontend repository is not included in the backend archive</td>
+<td>Partial source context; route behaviour and completeness not verified</td>
+</tr>
+<tr>
+<td>Frontend-to-API integration</td>
+<td>Intended architecture is frontend → KNode API → services/data</td>
+<td>Verify each page's API calls, authentication state, error handling, and environment configuration</td>
+</tr>
+<tr>
+<td>Full user journeys</td>
+<td>Product requirements and epics define intended journeys</td>
+<td>End-to-end acceptance testing still required</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-end-to-end-solution-architecture">5. End-to-end solution architecture<a class="headerlink" href="#5-end-to-end-solution-architecture" title="Permanent link">¶</a></h2>
+<p>KNode is designed as a web application backed by an API and a relational data store. The frontend should communicate with the backend API only. The API owns access checks, business rules, persistence, and coordination with AI and external services.</p>
+<h3 id="51-frontend-layer">5.1 Frontend layer<a class="headerlink" href="#51-frontend-layer" title="Permanent link">¶</a></h3>
+<p>The frontend is responsible for the user-facing experience and API consumption. The deployed sign-up URL is known, but a complete screen inventory and verified API contract require review of the frontend repository and the running application.</p>
+<h3 id="52-backendapi-layer">5.2 Backend/API layer<a class="headerlink" href="#52-backendapi-layer" title="Permanent link">¶</a></h3>
+<p>The inspected backend uses Python and FastAPI. Its main responsibilities include:</p>
+<ul>
+<li>exposing HTTP endpoints and OpenAPI documentation;</li>
+<li>validating requests and response structures with Pydantic;</li>
+<li>applying business logic and access checks through routers, dependencies, and services;</li>
+<li>managing account and profile operations;</li>
+<li>coordinating opportunity, evidence, matching, collective, referral, workspace, trend, and report functions; and</li>
+<li>returning errors in API responses and recording operational information.</li>
+</ul>
+<p>The implementation uses a layered structure with routers, schemas, services, repositories, SQLAlchemy models, and shared core/infrastructure modules. The separation is not absolute in every module, so this should be understood as the current repository convention rather than a claim of strict Clean Architecture.</p>
+<h3 id="53-data-layer">5.3 Data layer<a class="headerlink" href="#53-data-layer" title="Permanent link">¶</a></h3>
+<p>PostgreSQL is the configured target database for the backend. The data model defines persistent records for users, organisations, funders, sources, extracted claims, opportunities, requirements, matches and matching runs, collectives and their members, referrals, workspace items, reports, AI-related files/passages, and audit events. Alembic is used for schema migrations.</p>
+<p>The data model specifies source traceability and explicit handling of unknown values. Missing information should remain missing or unknown rather than being filled with a guess. The deployed schema and migration state still need to be validated against the actual project database before the model document is treated as proof of production state.</p>
+<h3 id="54-ai-and-external-services">5.4 AI and external services<a class="headerlink" href="#54-ai-and-external-services" title="Permanent link">¶</a></h3>
+<p>The backend repository includes Google Gen AI/Gemini-related integrations for selected extraction and matching tasks. Provider availability depends on environment configuration. The code review found keyword-overlap retrieval in the matching path; the backend implementation inspected did not establish that vector search or pgvector retrieval was wired into that path. The separate backend technical document should remain the source for implementation-level detail.</p>
+<p>The product requirements describe external data collection and email/report delivery as part of the intended system. Use of any external provider or public data source must respect access terms, privacy requirements, and approved configuration. A provider appearing in a requirements document is not proof that a production integration is enabled.</p>
+<h2 id="6-core-user-workflows">6. Core user workflows<a class="headerlink" href="#6-core-user-workflows" title="Permanent link">¶</a></h2>
+<p>The following workflows summarize the intended product behaviour. Individual steps may be implemented to different levels and must be verified through frontend/API integration tests.</p>
+<h3 id="61-registration-and-account-access">6.1 Registration and account access<a class="headerlink" href="#61-registration-and-account-access" title="Permanent link">¶</a></h3>
+<ol>
+<li>A user opens the hosted sign-up page.</li>
+<li>The frontend collects registration information and submits it to the KNode API.</li>
+<li>The backend validates the request and handles account creation and authentication-related processes.</li>
+<li>The user is directed into the appropriate organisation or funder experience when the relevant frontend journey is implemented.</li>
+</ol>
+<p>The backend contains authentication-related routes and services. The current hosted sign-up page's fields, validation behaviour, email verification experience, and successful post-sign-up journey were not independently verified in this pass.</p>
+<h3 id="62-opportunity-discovery-and-structuring">6.2 Opportunity discovery and structuring<a class="headerlink" href="#62-opportunity-discovery-and-structuring" title="Permanent link">¶</a></h3>
+<ol>
+<li>An opportunity is created, collected, or submitted from a permitted source.</li>
+<li>Its source/provenance and verification state are preserved.</li>
+<li>The opportunity content is converted into structured requirements such as geography, applicant type, thematic priorities, financial criteria, partnership conditions, and deadline where the source supports them.</li>
+<li>Unclear fields remain “Not specified” or another approved unknown state.</li>
+<li>Users review the opportunity and its source before relying on it.</li>
+</ol>
+<p>The requirements emphasise that an aggregator-only opportunity must not be presented as verified without suitable confirmation and that a deadline must not be inferred when the source is ambiguous.</p>
+<h3 id="63-evidence-profile-and-review">6.3 Evidence profile and review<a class="headerlink" href="#63-evidence-profile-and-review" title="Permanent link">¶</a></h3>
+<ol>
+<li>Public-source information or an uploaded document enters the evidence-processing workflow.</li>
+<li>The system extracts candidate claims and retains a link to the source and relevant passage where available.</li>
+<li>Extracted claims are structured and assigned an appropriate evidence/review status.</li>
+<li>Organisation users review, correct, or remove extracted claims where the product workflow supports it.</li>
+<li>The displayed profile distinguishes source-backed information, organisation-supplied information, AI-generated suggestions, and unknowns.</li>
+</ol>
+<p>Uploaded documents should not be publicly accessible by default. Visibility and sharing permissions must be enforced by the backend and verified before sensitive evidence is exposed to funders or partners.</p>
+<h3 id="64-opportunity-matching-and-gap-analysis">6.4 Opportunity matching and gap analysis<a class="headerlink" href="#64-opportunity-matching-and-gap-analysis" title="Permanent link">¶</a></h3>
+<ol>
+<li>The system identifies relevant opportunity requirements and available organisational evidence.</li>
+<li>Hard eligibility conditions, where implemented and supported by reliable data, are checked separately from evidence interpretation.</li>
+<li>Relevant evidence passages are retrieved and assessed against individual requirements.</li>
+<li>Results show the supporting evidence and explain gaps or uncertainty.</li>
+<li>The organisation uses the results to decide whether to investigate or pursue the opportunity.</li>
+</ol>
+<p>A result is a decision-support signal. It does not prove eligibility or predict a funding award. Unknown or unavailable evidence must not automatically be interpreted as proof that the organisation lacks a capability.</p>
+<h3 id="65-complementary-partner-discovery-and-collectives">6.5 Complementary partner discovery and collectives<a class="headerlink" href="#65-complementary-partner-discovery-and-collectives" title="Permanent link">¶</a></h3>
+<ol>
+<li>An organisation identifies an opportunity or capability gap.</li>
+<li>KNode considers whether other organisations have evidence that could complement the gap.</li>
+<li>Suggested partners are presented as possibilities (for example, “may complement”), not as confirmed collaborators or definitive “best” partners.</li>
+<li>The user can evaluate and invite potential members.</li>
+<li>A collective-level view helps identify which requirements have evidence coverage and what remains unresolved.</li>
+<li>Members coordinate roles, contributions, tasks, documents, and notes in a shared workspace where those features are available.</li>
+</ol>
+<p>The product requirements explicitly reject discovery ordering based on connection count, profile views, popularity, or network size. Complementarity should be grounded in capability, geography, programme experience, and evidence—not similarity alone.</p>
+<h3 id="66-funder-discovery-referrals-and-reports">6.6 Funder discovery, referrals, and reports<a class="headerlink" href="#66-funder-discovery-referrals-and-reports" title="Permanent link">¶</a></h3>
+<p>Funders are intended to review organisations and potential collectives with supporting evidence, gaps, and unknowns; create referrals; and receive or send reports through the relevant delivery workflow. A referral is an introduction, not an endorsement or funding decision. Email delivery depends on configured and tested provider integration.</p>
+<h3 id="67-trends-and-gap-analysis">6.7 Trends and gap analysis<a class="headerlink" href="#67-trends-and-gap-analysis" title="Permanent link">¶</a></h3>
+<p>The product requirements include trend analysis for funding opportunities and analysis of what an organisation needs to strengthen for an opportunity. The presence of trend-related backend modules does not establish that a complete dashboard visualization or end-to-end frontend workflow is deployed. The available data, aggregation logic, UI, and expected outputs need acceptance testing.</p>
+<h2 id="7-ai-boundaries-and-evidence-principles">7. AI boundaries and evidence principles<a class="headerlink" href="#7-ai-boundaries-and-evidence-principles" title="Permanent link">¶</a></h2>
+<p>AI is used to reduce the effort of structuring information and interpreting evidence. It must not become the sole authority for access, eligibility, evidence truth, partner consent, or funding decisions.</p>
+<p>Key principles from the product and security requirements are:</p>
+<ul>
+<li><strong>Source traceability:</strong> important claims and assessments should link to their origin and retain retrieval or verification context where available.</li>
+<li><strong>Explicit uncertainty:</strong> missing, conflicting, outdated, blocked, and unassessed information should remain distinguishable.</li>
+<li><strong>Human review:</strong> organisations should be able to review relevant extracted claims; uncertain or high-impact information should be routed for appropriate review.</li>
+<li><strong>Separation of responsibilities:</strong> deterministic rules handle hard constraints and application permissions; AI helps extract or interpret text and draft explanations.</li>
+<li><strong>No invented facts:</strong> if a requirement or claim cannot be supported, it should be marked unknown or not specified instead of inferred.</li>
+<li><strong>No false assurance:</strong> a match does not confirm legal eligibility, legitimacy, willingness to collaborate, or likelihood of funding.</li>
+<li><strong>Fair discovery:</strong> connection counts, popularity, and network size must not determine which organisation is surfaced as a potential partner.</li>
+<li><strong>Visible AI provenance:</strong> AI-generated content must be distinguishable from organisation-confirmed or independently verified information.</li>
+</ul>
+<h2 id="8-security-privacy-and-governance">8. Security, privacy, and governance<a class="headerlink" href="#8-security-privacy-and-governance" title="Permanent link">¶</a></h2>
+<p>The Security and Privacy Requirements document sets expectations for authentication, least-privilege authorization, secure handling of personal and organisational data, safe document processing, source collection controls, logging, backup/recovery, incident handling, and security testing. These are requirements, not a certification that every control is currently implemented.</p>
+<p>Areas the solution must address include:</p>
+<ul>
+<li>role-based access for organisation users, funders, and administrators/reviewers;</li>
+<li>object-level and tenant-level authorization, including prevention of insecure direct object reference (IDOR) access;</li>
+<li>secure password storage and appropriately protected authentication tokens/cookies;</li>
+<li>private-by-default uploaded documents and controlled field-level sharing;</li>
+<li>secrets management and restricted access to external provider credentials;</li>
+<li>validation and safe processing of uploaded documents;</li>
+<li>server-side protections for any URL fetching or crawling, including SSRF controls, rate limiting, and robots.txt/terms compliance;</li>
+<li>privacy-conscious logs, audit records for sensitive operations, and data minimisation;</li>
+<li>encryption, backup, recovery, retention, and breach-response controls; and</li>
+<li>security review and automated testing before deployment.</li>
+</ul>
+<p>The backend source contains authentication/security utilities and access-control components, but implementation coverage must be assessed per route and workflow. This document does not claim that the system has passed a full security audit, achieved OWASP ASVS Level 2, or completed all privacy requirements.</p>
+<h2 id="9-technology-overview">9. Technology overview<a class="headerlink" href="#9-technology-overview" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology / approach</th>
+<th>Status and qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Web frontend</td>
+<td>React/Next.js according to project context; hosted sign-up entry point on Vercel</td>
+<td>Confirm exact framework/version, deployment configuration, screen coverage, and API wiring against frontend source</td>
+</tr>
+<tr>
+<td>Backend API</td>
+<td>Python, FastAPI, Pydantic</td>
+<td>Found in the inspected backend repository</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>PostgreSQL, SQLAlchemy ORM, Alembic migrations</td>
+<td>PostgreSQL is the configured target; deployed schema and migrations require environment-level verification</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>JWT-related utilities, password hashing, role/scope dependencies</td>
+<td>Present in backend source; production configuration and route-by-route authorization need verification</td>
+</tr>
+<tr>
+<td>AI integration</td>
+<td>Google Gen AI/Gemini integration; Vertex AI support in selected configuration paths</td>
+<td>External availability depends on configuration; the exact provider/model configuration should be confirmed before deployment</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td>Keyword-overlap retrieval in the inspected matching path</td>
+<td>Vector retrieval/pgvector integration in the matching path was not established by the source review</td>
+</tr>
+<tr>
+<td>Testing and code quality</td>
+<td>Pytest, Ruff; API testing can be performed with an HTTP client/Postman</td>
+<td>Test results must be associated with their database/configuration and should include PostgreSQL and end-to-end coverage</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td>Hosted frontend link supplied; backend deployment configuration exists in repository</td>
+<td>Deployment configuration is not proof of production health, uptime, or full integration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-implementation-status-and-verification-matrix">10. Implementation status and verification matrix<a class="headerlink" href="#10-implementation-status-and-verification-matrix" title="Permanent link">¶</a></h2>
+<p>The following matrix deliberately separates product scope from implementation evidence.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Requirements say</th>
+<th>Evidence available for this review</th>
+<th>Status to communicate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hosted sign-up entry</td>
+<td>Users can register for KNode</td>
+<td>User supplied the Vercel <code>/auth/signup</code> URL; page itself could not be fetched in this environment</td>
+<td>Hosted route supplied; live behaviour not verified</td>
+</tr>
+<tr>
+<td>Authentication and accounts</td>
+<td>Role-aware organisation/funder access</td>
+<td>Auth routes/services and security utilities found in backend source</td>
+<td>Implemented in backend code; end-to-end frontend journey needs testing</td>
+</tr>
+<tr>
+<td>Organisation/funder profiles</td>
+<td>Maintain profile information and evidence</td>
+<td>Profile routers/services/models found in backend source</td>
+<td>Backend capability present; complete UI and permission behaviour require verification</td>
+</tr>
+<tr>
+<td>Opportunity intelligence</td>
+<td>Discover opportunities and structure requirements</td>
+<td>Opportunity and requirement modules found; PRD/Epics define provenance and verification expectations</td>
+<td>Partially verified; data-source refresh and full workflow require testing</td>
+</tr>
+<tr>
+<td>Evidence extraction</td>
+<td>Extract source-linked claims and expose review states</td>
+<td>Evidence/document-processing modules found; upload and external provider behaviour depend on configuration</td>
+<td>Partial/configuration-dependent; review and privacy workflow require acceptance tests</td>
+</tr>
+<tr>
+<td>Matching</td>
+<td>Requirement-level comparison with evidence and gaps</td>
+<td>Matching modules include assessment and retrieval components; quality and complete integration not established by code presence alone</td>
+<td>Partially implemented; verify outputs, provider availability, and evidence traceability</td>
+</tr>
+<tr>
+<td>Scores/ranking</td>
+<td>Conflicting statements across PRD, Epics, and backend design</td>
+<td>Scoring-related code is present, while Epics prohibit numeric scores/ranking labels</td>
+<td>Product decision required before UI exposure</td>
+</tr>
+<tr>
+<td>Partner suggestions</td>
+<td>Complementary partners, not popularity-based similarity</td>
+<td>Partner suggestion helpers are present in backend source</td>
+<td>Code path present; relevance, fairness, and consent expectations require tests</td>
+</tr>
+<tr>
+<td>Collective builder/workspace</td>
+<td>Assemble collaborators and coordinate work</td>
+<td>Collective, membership, workspace-related modules/models are present</td>
+<td>Backend support found; full frontend workflow not verified</td>
+</tr>
+<tr>
+<td>Funder referrals</td>
+<td>Create and manage referrals</td>
+<td>Referral-related backend components are present</td>
+<td>Backend support found; permissions, status transitions, and UI need tests</td>
+</tr>
+<tr>
+<td>Reports/email</td>
+<td>Deliver source-linked reports and notifications</td>
+<td>Report/email-related code and configuration are present in project context</td>
+<td>Provider configuration and successful delivery not verified here</td>
+</tr>
+<tr>
+<td>Trend/gap analysis</td>
+<td>Surface funding trends and gap advice</td>
+<td>Trend-related backend modules are present</td>
+<td>Full data pipeline and frontend visualizations not verified</td>
+</tr>
+<tr>
+<td>Security/privacy controls</td>
+<td>Private documents, access control, auditability, secure processing</td>
+<td>Security utilities and access-related code exist; requirements document lists broader controls</td>
+<td>Must be checked against a route-by-route and deployment security checklist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="status-vocabulary">Status vocabulary<a class="headerlink" href="#status-vocabulary" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Implemented in code:</strong> relevant code exists; this does not prove production readiness or acceptance.</li>
+<li><strong>Partially implemented:</strong> some parts exist, but integration, coverage, quality, or supporting infrastructure remains incomplete or unverified.</li>
+<li><strong>Planned / specified:</strong> described in the product or security requirements without sufficient implementation evidence in the reviewed source.</li>
+<li><strong>Not verified:</strong> evidence available in this documentation pass is insufficient to make a reliable claim.</li>
+<li><strong>Requires decision:</strong> product or technical sources conflict and an authorised owner must resolve the conflict.</li>
+</ul>
+<h2 id="11-key-limitations-and-open-decisions">11. Key limitations and open decisions<a class="headerlink" href="#11-key-limitations-and-open-decisions" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>Frontend source and runtime validation:</strong> review the frontend repository, route inventory, API client, authentication state, environment variables, and actual deployed flows. The supplied signup URL could not be loaded during this pass.</li>
+<li><strong>Scoring and ranking policy:</strong> reconcile the Product Requirements Document with the Epics before exposing numeric scores or ranked organisation labels.</li>
+<li><strong>Requirement status vocabulary:</strong> agree the canonical labels for met, partially met, not met, unknown, not checked, and technical error, and map backend schemas to the approved user-facing terminology.</li>
+<li><strong>Evidence review and visibility:</strong> verify that unreviewed claims and uploaded documents are not exposed beyond their permitted audience.</li>
+<li><strong>AI and retrieval configuration:</strong> document the exact model/provider, credentials configuration, retrieval implementation, output validation, failure behaviour, and version tracking used in each environment.</li>
+<li><strong>Database state:</strong> run and verify migrations against the target PostgreSQL database and test with the intended production driver.</li>
+<li><strong>End-to-end workflows:</strong> test registration through to authenticated dashboard access, opportunity discovery, evidence review, matching, partner suggestions, collective workflows, referrals, and report delivery.</li>
+<li><strong>Security readiness:</strong> perform route-level authorization testing, dependency and secret scanning, upload/SSRF testing where applicable, and deployment configuration review.</li>
+<li><strong>Data source permissions:</strong> confirm the legal basis, licence terms, access restrictions, robots.txt behaviour, and refresh policy for each public or third-party source.</li>
+</ol>
+<h2 id="12-recommended-validation-plan">12. Recommended validation plan<a class="headerlink" href="#12-recommended-validation-plan" title="Permanent link">¶</a></h2>
+<p>Before describing the MVP as production-ready, validate the complete user journey rather than testing the API in isolation:</p>
+<ol>
+<li>Open the hosted sign-up page and verify layout, required fields, client-side validation, API errors, and success behaviour.</li>
+<li>Register and authenticate test organisation and funder accounts; confirm the correct role-specific landing experience.</li>
+<li>Verify that a user cannot access another organisation's private profile, evidence, documents, reports, or collective workspace by changing identifiers.</li>
+<li>Create or retrieve an opportunity and confirm that provenance, verification state, deadline, and unknown fields are shown accurately.</li>
+<li>Process representative documents and confirm every extracted claim links to its source and displays the correct review/visibility status.</li>
+<li>Run matching against representative evidence, including positive, partial, conflicting, missing, and technically failed cases. Confirm the result does not turn missing evidence into a negative fact.</li>
+<li>Test complementary partner suggestions for evidence relevance and ensure connection counts, popularity, and network size do not affect discovery.</li>
+<li>Test collective coverage and invitations, referral state changes, report generation, and email delivery with approved test accounts.</li>
+<li>Run backend tests against PostgreSQL as well as isolated test databases, and run frontend-to-backend integration tests against the deployed environment.</li>
+<li>Complete the security and privacy review required by the project's Security and Privacy Requirements document.</li>
+</ol>
+<h2 id="13-glossary">13. Glossary<a class="headerlink" href="#13-glossary" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in KNode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organisation / NGO / NPO</td>
+<td>A nonprofit organisation whose mission, capabilities, programmes, and evidence can be represented in KNode</td>
+</tr>
+<tr>
+<td>Funder</td>
+<td>A foundation, donor, agency, or programme offering or managing funding opportunities</td>
+</tr>
+<tr>
+<td>Funding opportunity</td>
+<td>A grant or funding call with eligibility conditions, requirements, deadlines, and a source</td>
+</tr>
+<tr>
+<td>Evidence ledger</td>
+<td>Records of claims and their source, status, and relevant verification/review information</td>
+</tr>
+<tr>
+<td>Requirement assessment</td>
+<td>An evidence-based view of how the available information relates to one opportunity requirement</td>
+</tr>
+<tr>
+<td>Complementary partner</td>
+<td>An organisation whose demonstrated capabilities may address a gap or add a needed contribution</td>
+</tr>
+<tr>
+<td>Collective / consortium</td>
+<td>A proposed group of organisations working together around an opportunity</td>
+</tr>
+<tr>
+<td>Referral</td>
+<td>An introduction of an organisation or collective to a funder, opportunity, or partner; not an endorsement or award</td>
+</tr>
+<tr>
+<td>Unknown / missing</td>
+<td>Information that is unavailable, unsupported, or not assessed; it is not automatically proof of incapability</td>
+</tr>
+<tr>
+<td>Decision support</td>
+<td>Information intended to help a person make a decision, without replacing the person's judgement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="14-source-documents-and-related-technical-pages">14. Source documents and related technical pages<a class="headerlink" href="#14-source-documents-and-related-technical-pages" title="Permanent link">¶</a></h2>
+<p>This overview synthesizes the following project sources:</p>
+<ul>
+<li><strong>Alya Product Requirements Document</strong> - product problem, personas, intended features, user flows, AI boundaries, and acceptance expectations. <a href="https://docs.google.com/document/d/1SnDUWyaqpQn6qto0l3FhOfaXV68t53vlg-IahBFJmC4/edit?tab=t.0">Alya PRD</a></li>
+<li><strong>Alya Epics</strong> - prioritised product behaviours and acceptance criteria, including fairness, evidence states, privacy, and the prohibition on numeric trust/risk scores or ranking labels. <a href="https://jmainamercy.atlassian.net/jira/software/projects/AFP/boards/100/backlog">Alya Epics</a></li>
+<li><strong>Alya Data Model</strong> - intended entities, relationships, status conventions, provenance, and persistence requirements. <a href="https://docs.google.com/document/d/1IL2LW0MAJ8w4G44G8gHASjvoCF5_DEXZlWgZ30Mujio/edit?tab=t.v5bembk3ww3c#heading=h.v24apw3k80jz">Alya Data Model</a></li>
+<li><strong>Alya Security and Privacy Requirements</strong> - intended security, privacy, source-collection, audit, and operational controls. <a href="https://docs.google.com/document/d/1mWBRcvSwhOXP-jwyWXGbA8QizYxowvPNwhAjLR8o2Hc/edit?tab=t.0#heading=h.f5a41wqh2006">Alya Security Requirements document</a></li>
+<li><strong>KNode Backend Technical Documentation</strong> - proposed and current backend architecture, modules, API behaviour, AI integrations, and implementation limitations.<a href="https://docs.google.com/document/d/1cw60eD3mxYD7QDEuGNA00ISGBNeES6LKqsPkTp2tWHY/edit?tab=t.0">Alya Backend Technical Documentation</a></li>
+<li><strong>KNode Frontend Technical Documentation</strong> - <a href="https://docs.google.com/document/d/1tRqpXvkQxtaqKVMut1KsTFm55PbRKPrtbaA-9BQwin8/edit?tab=t.0#heading=h.xvkcfdleebgz">Alya Frontend Technical Documentation</a></li>
+<li><strong>KNode SAD</strong> - <a href="https://lucid.app/lucidchart/d8b8a5e1-e092-4d29-83c0-0a202c6dba92/edit?invitationId=inv_278130e4-6b41-4e3d-9ff5-0ff720c45ab7&amp;page=0_0#">Alya Security Requirements document</a></li>
+<li><strong>KNode SSAD</strong> - <a href="https://miro.com/app/board/uXjVEcegNEg=/?share_link_id=531272794233">Alya Security Requirements document</a></li>
+<li><strong>Hosted frontend</strong> - <a href="https://alya-frontend-dashboard.vercel.app/auth/signup">Hosted dashboard</a></li>
+</ul>
+<p>For implementation detail, use the dedicated <strong>Backend</strong> page. Use the <strong>Frontend Web</strong>, <strong>AI Service</strong>, <strong>Architecture</strong>, and <strong>Integrations</strong> pages for their respective concerns as they are filled in and validated against the source repositories.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      KNode — evidence-based matchmaking for African NGOs and funders.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link", "navigation.expand"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

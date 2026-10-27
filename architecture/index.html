@@ -1,0 +1,1692 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical documentation for KNode, an evidence-based matchmaking platform connecting African NGOs, collectives and funders.">
+      
+      
+      
+        <link rel="canonical" href="https://akirachix.github.io/alya-technical-documentation/architecture/">
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../backend/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/knode-logo-light.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Architecture - KNode Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#knode-technical-architecture-ai-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KNode Documentation" class="md-header__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KNode Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KNode Documentation" class="md-nav__button md-logo" aria-label="KNode Documentation" data-md-component="logo">
+      
+  <img src="../assets/brand/knode-logo-light.png" alt="logo">
+
+    </a>
+    KNode Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akirachix/alya-technical-documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    alya-technical-documentation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 System Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-system-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. System Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Data Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Data stores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Retention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-deployment-and-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Deployment and Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-security-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Security Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Security Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-security-system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Security System Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-security-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Security Layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-identity-and-access-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Identity and Access Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Identity and Access Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-organization-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Organization verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-data-protection-and-tenant-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Data Protection and Tenant Isolation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-upload-ingestion-and-ai-gateway-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Upload, Ingestion and AI Gateway Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-audit-and-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Audit and Logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-implementation-status-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Implementation Status Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../backend/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Database and Migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/authentication-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication and Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/matching-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matching Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend Web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 System Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-system-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. System Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Data Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Data Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Data stores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Retention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-deployment-and-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Deployment and Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-security-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Security Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Security Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-security-system-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Security System Architecture Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-security-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Security Layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-identity-and-access-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Identity and Access Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Identity and Access Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-organization-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Organization verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-data-protection-and-tenant-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Data Protection and Tenant Isolation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-upload-ingestion-and-ai-gateway-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Upload, Ingestion and AI Gateway Controls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-audit-and-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Audit and Logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-implementation-status-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Implementation Status Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="knode-technical-architecture-ai-integration">KNode Technical Architecture &amp; AI Integration<a class="headerlink" href="#knode-technical-architecture-ai-integration" title="Permanent link">¶</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Status and evidence</p>
+<p>This page describes KNode's <strong>target architecture</strong> together with its
+<strong>current implementation status</strong>. Each component and control carries a label:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Label</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;">Found in code (<code>alya-backend</code> or <code>alya-frontend-develop</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Partial</td>
+<td style="text-align: left;">Exists but incomplete or not verified on every route</td>
+</tr>
+<tr>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Design target; not present in the code reviewed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evidence checked:</strong> <code>alya-backend</code> @ <code>&lt;commit-sha&gt;</code> (<code>main.py</code>, <code>core/config.py</code>,
+<code>core/security.py</code>, <code>core/dependencies.py</code>, <code>database.py</code>) and
+<code>alya-frontend-develop</code> @ <code>&lt;commit-sha&gt;</code>. Last reviewed: 26 Oct 2026.
+A summary of every control is in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</div>
+<hr>
+<h2 id="1-architecture-overview">1. Architecture Overview<a class="headerlink" href="#1-architecture-overview" title="Permanent link">¶</a></h2>
+<p>KNode is a single application with separate background processing. Users work in dashboards for NGOs, funders and administrators, which send requests to a central interface that checks identity and permissions. The interface is divided into self-contained modules, such as authentication, verification, matching and reports. Slow tasks, such as collecting data, reading documents and running AI extraction, are designed to be queued and handled by background workers, so users never wait for them. Data is stored in a PostgreSQL database and in private encrypted storage. This keeps the system simple to run, responsive, and easy to expand later.Some components below are implemented today and others are design targets; see Section 11 for the status of each.</p>
+<h3 id="11-system-architecture-diagram">1.1 System Architecture Diagram<a class="headerlink" href="#11-system-architecture-diagram" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/SAD/Alya-SAD.svg" data-desc-position="bottom"><img alt="KNode System Architecture Diagram" src="../assets/SAD/Alya-SAD.svg"></a></p>
+<p><em>Figure 1. End-to-end data flow for NGO and Funder users across the frontend, backend modules, database and external services.</em></p>
+<hr>
+<h2 id="2-system-components">2. System Components<a class="headerlink" href="#2-system-components" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Responsibility</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>NGO and Funder dashboards</strong></td>
+<td style="text-align: left;">NGOs manage profiles and upload evidence; funders create grants, discover organizations and view collectives and funding trends</td>
+<td style="text-align: left;">Implemented (see <a href="../frontend/">Frontend Web</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Admin portal</strong></td>
+<td style="text-align: left;">System monitoring, review of flagged evidence and access management</td>
+<td style="text-align: left;">Planned (no <code>/admin</code> routes in the frontend repo)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Authentication</strong></td>
+<td style="text-align: left;">Login, one-time passwords, tokens and role-based access</td>
+<td style="text-align: left;">Implemented (<code>core/security.py</code>, <code>core/dependencies.py</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Organization verification</strong></td>
+<td style="text-align: left;">Confirms that applicants are legitimate US-registered organizations</td>
+<td style="text-align: left;">Implemented</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Evidence Profiles</strong></td>
+<td style="text-align: left;">Turns uploaded evidence into normalized capability profiles</td>
+<td style="text-align: left;">Implemented</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Opportunity Intelligence</strong></td>
+<td style="text-align: left;">Collects funding opportunities and stores them as structured records</td>
+<td style="text-align: left;">Implemented</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Matching Engine</strong></td>
+<td style="text-align: left;">Scores compatibility between organizations and funding opportunities using fixed rules</td>
+<td style="text-align: left;">Implemented (<code>routers/matching.py</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Collectives</strong></td>
+<td style="text-align: left;">Supports coalition formation and shared workspaces</td>
+<td style="text-align: left;">Partial</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Funding Trends</strong></td>
+<td style="text-align: left;">Shows funding patterns to funders</td>
+<td style="text-align: left;">Implemented (trend chart in the NGO area; grant gap analysis absent)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Referrals</strong></td>
+<td style="text-align: left;">Manages the lifecycle of funder-to-NGO interactions</td>
+<td style="text-align: left;">Partial</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reports</strong></td>
+<td style="text-align: left;">Generates and emails platform reports</td>
+<td style="text-align: left;">Planned</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Data Ingestion Service</strong></td>
+<td style="text-align: left;">Background workers that collect and parse data from external sources</td>
+<td style="text-align: left;">Partial</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AI Service Gateway</strong></td>
+<td style="text-align: left;">The only route to the AI provider; sends redacted text and returns structured results</td>
+<td style="text-align: left;">Partial (<code>services/ai_service.py</code> exists; redaction and "only route" unverified)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Notifications</strong></td>
+<td style="text-align: left;">Sends one-time passwords, alerts and report emails</td>
+<td style="text-align: left;">Implemented (SMTP settings in <code>core/config.py</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-data-architecture">3. Data Architecture<a class="headerlink" href="#3-data-architecture" title="Permanent link">¶</a></h2>
+<h3 id="31-data-stores">3.1 Data stores<a class="headerlink" href="#31-data-stores" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Store</th>
+<th style="text-align: left;">Contents</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>PostgreSQL</strong></td>
+<td style="text-align: left;">Users, organizations, profiles, opportunities, collectives, referrals, reports, extraction results</td>
+<td style="text-align: left;">Implemented (<code>database.py</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>pgvector (same PostgreSQL instance)</strong></td>
+<td style="text-align: left;">Document chunks and embeddings used for semantic search</td>
+<td style="text-align: left;">Planned (confirm)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Audit and security log store</strong></td>
+<td style="text-align: left;">Authentication, access and privileged-action events</td>
+<td style="text-align: left;">Partial (<code>audit_events</code> model and service exist; coverage not verified)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Encrypted backups</strong></td>
+<td style="text-align: left;">Daily database backups in a separate region</td>
+<td style="text-align: left;">Planned</td>
+</tr>
+<tr>
+<td style="text-align: left;">### 3.2 External sources and services</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Source or service</th>
+<th style="text-align: left;">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>IRS exempt organization data and Form 990 filings</strong></td>
+<td style="text-align: left;">Verifying and discovering US-registered organizations; financial and geographic information</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Grants.gov and USAspending</strong></td>
+<td style="text-align: left;">Funding opportunities and historical award data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>NGO websites and funder documents</strong></td>
+<td style="text-align: left;">Evidence of programs and funding requirements, collected by the ingestion service</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AI provider (Gemini)</strong></td>
+<td style="text-align: left;">Extracts structured data from text, through the AI Service Gateway</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Email provider</strong></td>
+<td style="text-align: left;">Delivers one-time passwords, alerts and reports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-retention">3.3 Retention<a class="headerlink" href="#33-retention" title="Permanent link">¶</a></h3>
+<ul>
+<li>Audit logs are kept for 12 months.</li>
+<li>Uploaded evidence is kept while the organization is active and deleted on request or account closure, together with derived chunks and embeddings.</li>
+<li>Deletions are logged.</li>
+</ul>
+<hr>
+<h2 id="4-deployment-and-operations">4. Deployment and Operations<a class="headerlink" href="#4-deployment-and-operations" title="Permanent link">¶</a></h2>
+<ul>
+<li>Separate development, staging and production environments, each with its own database, storage, keys and credentials.</li>
+<li>Containerized web, API and worker services; the worker pool scales independently.</li>
+<li>Managed PostgreSQL, object storage and secrets management.</li>
+<li>Automated testing and gated promotion to production through CI/CD, with infrastructure defined as code.</li>
+</ul>
+<p><strong>Status:</strong> Frontend hosted on Vercel (Implemented, [<a href="https://alya-frontend-dashboard.vercel.app/auth/signup">link to deployment</a>]). Backend hosting: <code>&lt;platform&gt;</code> (confirm).
+Separate staging/production environments, containerized worker pool, infrastructure as code and
+gated CI/CD are  Planned. Current CI only checks that the PR template is completed.</p>
+<hr>
+<h2 id="5-security-architecture">5. Security Architecture<a class="headerlink" href="#5-security-architecture" title="Permanent link">¶</a></h2>
+<p>The security architecture is organized by layer, as shown in the Security System Architecture Diagram: users and devices, perimeter security, the application layer, the data layer and external services.</p>
+<h3 id="51-security-system-architecture-diagram">5.1 Security System Architecture Diagram<a class="headerlink" href="#51-security-system-architecture-diagram" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/SAD/SSAD.svg" data-desc-position="bottom"><img alt="KNode Security System Architecture Diagram" src="../assets/SAD/SSAD.svg"></a></p>
+<p><em>Figure 2. Security controls by layer: users and devices, perimeter security, application layer, data layer and external services.</em></p>
+<hr>
+<h2 id="6-security-layers">6. Security Layers<a class="headerlink" href="#6-security-layers" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Controls in this section are the <strong>target design</strong> unless marked Implemented or Planned in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Components</th>
+<th style="text-align: left;">Security implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Users and devices</strong></td>
+<td style="text-align: left;">NGO dashboard, Funder dashboard, Admin portal (Next.js)</td>
+<td style="text-align: left;">All traffic over HTTPS; admin access is time-bound and logged; flagged evidence is reviewed by admins</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Perimeter security</strong></td>
+<td style="text-align: left;">Cloudflare DNS and DDoS protection, Web Application Firewall, API gateway</td>
+<td style="text-align: left;">DDoS mitigation, TLS 1.2+ and HSTS, input and output sanitization, bot blocking, rate limiting, request and schema validation, CORS allow-list</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Application layer</strong></td>
+<td style="text-align: left;">FastAPI backend: authentication, authorization, organization verification, evidence profiles, opportunity intelligence, matching engine, matching and collectives, referrals and reports, AI Service Gateway, notifications</td>
+<td style="text-align: left;">Login and OTP protection, role and ownership checks, tenant scoping, upload scanning, source-linked claims, redaction before AI calls, signed email links</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Data layer</strong></td>
+<td style="text-align: left;">PostgreSQL, vector index, private object storage, secrets manager and KMS, audit logging, encrypted backups</td>
+<td style="text-align: left;">Encryption at rest and in transit, Row-Level Security, pre-signed URLs, key rotation, 12-month audit logs, daily backups with quarterly restore tests</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>External services</strong></td>
+<td style="text-align: left;">AI provider (Gemini), email provider, public data sources</td>
+<td style="text-align: left;">Redacted text only to the AI provider under the provider agreement; SPF, DKIM and DMARC on email; public sources read-only, validated on import, with terms respected</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-identity-and-access-management">7. Identity and Access Management<a class="headerlink" href="#7-identity-and-access-management" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Controls in this section are the <strong>target design</strong> unless marked Implemented or Planned in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</blockquote>
+<h3 id="71-authentication">7.1 Authentication<a class="headerlink" href="#71-authentication" title="Permanent link">¶</a></h3>
+<ul>
+<li>Email and password with hashed passwords and a breached-password check.</li>
+<li>Short-lived, single-use email OTP with attempt limits.</li>
+<li>Funders and admins also Planned to use TOTP or passkeys.</li>
+<li>Short-lived access tokens with rotating refresh tokens, stored in <code>httpOnly</code>, <code>Secure</code>, <code>SameSite</code> cookies. A reused refresh token revokes the whole token family, and a server-side store allows logout and account suspension.  <em>Current state:</em> the backend defines a refresh cookie (<code>knode_refresh</code>), but the frontend
+  currently keeps tokens in <code>sessionStorage</code>, does not call <code>/auth/refresh</code>, and does not
+  implement logout. Cookie-based rotation is Planned for the frontend.</li>
+<li>Per-account and per-IP throttling with progressive lockout.</li>
+</ul>
+<h3 id="72-authorization">7.2 Authorization<a class="headerlink" href="#72-authorization" title="Permanent link">¶</a></h3>
+<ul>
+<li>Role-based access control for NGO member, NGO admin, Funder member, Funder admin and KNode admin.</li>
+<li>Every request checks ownership of the object, not just the role.</li>
+<li>Requests without a resolved tenant are rejected.</li>
+</ul>
+<h3 id="73-organization-verification">7.3 Organization verification<a class="headerlink" href="#73-organization-verification" title="Permanent link">¶</a></h3>
+<ol>
+<li>The EIN is checked against IRS exempt organization data and must be listed and not revoked.</li>
+<li>The applicant's email domain must match the organization's website.</li>
+<li>An OTP sent to a verified-domain email confirms control of the domain.</li>
+<li>Unverified or mismatched applications are held for admin review.</li>
+</ol>
+<p>Verification status is re-checked on a schedule to detect later IRS revocations.</p>
+<hr>
+<h2 id="8-data-protection-and-tenant-isolation">8. Data Protection and Tenant Isolation<a class="headerlink" href="#8-data-protection-and-tenant-isolation" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Controls in this section are the <strong>target design</strong> unless marked Implemented or Planned in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</blockquote>
+<ul>
+<li><strong>Encryption:</strong> data is encrypted at rest and in transit, and sensitive fields are encrypted again at application level.</li>
+<li><strong>Row-Level Security (RLS):</strong> PostgreSQL Row-Level Security is the planned mechanism for tenant isolation. Today, isolation relies on application-level scope checks, which are still being verified route by route.</li>
+<li><strong>Tenant context:</strong> the API sets the tenant for every request inside the database transaction. Application database roles cannot bypass RLS, and automated tests attempt cross-tenant access on every tenant-private table.</li>
+<li><strong>Shared data:</strong> published profile fields, verified capabilities and published opportunities are readable by authenticated users according to a visibility flag, so funders can discover organizations.</li>
+<li><strong>Documents:</strong> uploads are stored privately with SSE-KMS encryption and served only through short-lived pre-signed URLs.</li>
+<li><strong>Secrets and keys:</strong> held in the secrets manager and KMS with least-privilege access and key rotation.</li>
+<li><strong>Backups:</strong> encrypted, daily, kept for 30 days in a separate region, with quarterly restore tests.</li>
+</ul>
+<hr>
+<h2 id="9-upload-ingestion-and-ai-gateway-controls">9. Upload, Ingestion and AI Gateway Controls<a class="headerlink" href="#9-upload-ingestion-and-ai-gateway-controls" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Controls in this section are the <strong>target design</strong> unless marked Implemented or Planned in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</blockquote>
+<ul>
+<li><strong>Uploads:</strong> file type allowlist, size and page limits, content-type check, malware scan and sandboxed parsing.</li>
+<li><strong>Ingestion:</strong> allow-listed targets only, protection against server-side request forgery, isolated workers, and scraped content treated as untrusted.</li>
+<li><strong>AI Service Gateway:</strong> personal data is redacted before any text leaves the platform, source text is passed as untrusted data, and results are validated against the source before being saved. Records from documents flagged as suspected injections are held for review rather than published automatically. Per-tenant quotas limit misuse.</li>
+</ul>
+<hr>
+<h2 id="10-audit-and-logging">10. Audit and Logging<a class="headerlink" href="#10-audit-and-logging" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Controls in this section are the <strong>target design</strong> unless marked Implemented or Planned in <a href="#11-implementation-status-summary">Section 11</a>.</p>
+</blockquote>
+<ul>
+<li>Authentication, OTP, access and privileged-action events are logged, with critical data changes.</li>
+<li>Logs are append-only and kept for 12 months.</li>
+<li>Logs never contain passwords, OTPs, keys or document content.</li>
+</ul>
+<hr>
+<h2 id="11-implementation-status-summary">11. Implementation Status Summary<a class="headerlink" href="#11-implementation-status-summary" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Control</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Argon2 password hashing</td>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;"><code>core/security.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">JWT access/refresh with expiry, type and JTI revocation</td>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;"><code>core/security.py</code>, <code>core/dependencies.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Email OTP with hashing and attempt limits</td>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;"><code>core/security.py</code>, <code>core/config.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Role checks (<code>require_role</code>)</td>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;"><code>core/dependencies.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Object-level ownership checks</td>
+<td style="text-align: left;">Partial</td>
+<td style="text-align: left;"><code>require_self_or_admin</code> does not compare IDs; route review in progress</td>
+</tr>
+<tr>
+<td style="text-align: left;">CORS allow-list, correlation-ID middleware</td>
+<td style="text-align: left;">Implemented</td>
+<td style="text-align: left;"><code>core/config.py</code>, <code>main.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Audit logging</td>
+<td style="text-align: left;">Partial</td>
+<td style="text-align: left;"><code>audit_events</code> model and service exist; coverage unverified</td>
+</tr>
+<tr>
+<td style="text-align: left;">Login throttling / lockout</td>
+<td style="text-align: left;">Partial</td>
+<td style="text-align: left;">Settings exist; multi-process state unverified</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cloudflare / WAF / API gateway</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Row-Level Security</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">KMS, key rotation, SSE-KMS storage</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Encrypted backups and restore tests</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Background queue and worker pool</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo (confirm)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Malware scanning, sandboxed parsing</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo (confirm)</td>
+</tr>
+<tr>
+<td style="text-align: left;">TOTP / passkeys, breached-password check</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">Not in repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Admin portal</td>
+<td style="text-align: left;">Planned</td>
+<td style="text-align: left;">No admin routes in frontend repo</td>
+</tr>
+<tr>
+<td style="text-align: left;">AI redaction before Gemini calls</td>
+<td style="text-align: left;">Partial</td>
+<td style="text-align: left;">Confirm in <code>ai_service.py</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      KNode — evidence-based matchmaking for African NGOs and funders.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.tracking", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link", "navigation.expand"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
