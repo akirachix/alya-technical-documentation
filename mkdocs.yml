@@ -7,8 +7,8 @@ repo_name: alya-technical-documentation
 theme:
   name: material
   language: en
-  logo: assets/brand/knode-logo.png
-  favicon: assets/brand/knode-logo.png
+  logo: assets/brand/knode-logo-light.png
+  favicon: assets/brand/knode-logo-light.png
   palette:
     - scheme: default
       primary: custom
@@ -63,6 +63,8 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 plugins:
   - search
